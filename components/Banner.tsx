@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 
@@ -48,7 +47,7 @@ export default function Banner() {
             >
                 {/* Small Badge */}
                 <motion.div variants={fadeUp} className="mb-4 font-satoshi">
-                    <span className="bg-white/35 text-sm md:text-xl px-4 py-1 rounded-[8px] backdrop-blur-md shadow-[0_2px_6.6px_0_#FF6600]">
+                    <span className="bg-white/35 text-sm md:text-lg px-4 py-1 rounded-[8px] backdrop-blur-md shadow-[0_2px_6.6px_0_#FF6600]">
                         Your AI Fitness Companion
                     </span>
                 </motion.div>
@@ -56,17 +55,17 @@ export default function Banner() {
                 {/* Main Heading */}
                 <motion.h1
                     variants={fadeUp}
-                    className="text-4xl sm:text-5xl md:text-8xl font-medium leading-tight mb-4 font-neue-haas-grotesk-display-pro"
+                    className="text-4xl sm:text-5xl md:text-7xl font-medium leading-tight mb-4 font-neue-haas-grotesk-display-pro"
                 >
                     Transform Your Health
                     <br />
-                    <span className="text-white/90">with The NutriFit</span>
+                    with <span className="bg-linear-to-r from-[#EEEEEE] to-[#FF6600] bg-clip-text text-transparent">NutriFit</span>
                 </motion.h1>
 
                 {/* Subtitle */}
                 <motion.p
                     variants={fadeUp}
-                    className="text-base sm:text-2xl text-white/80 mb-8 font-satoshi"
+                    className="text-base sm:text-xl text-white/80 mb-8 font-satoshi"
                 >
                     Smart Fitness & Diet Planner that helps you achieve your health goals. <br className="hidden md:block"/>
                     Get personalized workout and meal plans powered by AI.
