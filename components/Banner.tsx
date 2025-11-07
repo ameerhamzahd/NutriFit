@@ -77,7 +77,7 @@ export default function Banner() {
                     className="flex flex-col sm:flex-row gap-4 justify-center font-satoshi"
                 >
                     <Link href="">
-                        <button className="bg-[#FF6600] hover:bg-[#FF6600]/75 text-white font-medium px-[35px] py-[20px] rounded-[12px] transition cursor-pointer">
+                        <button className="bg-[#FF6600] hover:bg-[#FF6600]/75 text-white font-medium px-[30px] py-[15px] rounded-[12px] transition cursor-pointer">
                             Get Started
                         </button>
                     </Link>
