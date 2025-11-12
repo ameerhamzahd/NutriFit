@@ -108,10 +108,10 @@ const Navbar = () => {
 
       {/* Desktop Button */}
       <div className="max-lg:hidden">
-        <Link href="/find-me">
+        <Link href="/auth/login">
           <button className="pl-4 pr-1.5 py-[5px] rounded-full cursor-pointer border border-white text-white bg-[#0000004D] transition-all duration-300 ease-in-out">
             <span className="text-lg leading-[150%] tracking-[7%] text-white font-medium flex items-center justify-center gap-3">
-              Register
+              Get Started
               <ArrowUpRight className="w-6 h-6 bg-[#FF833B] text-black rounded-full p-1" />
             </span>
           </button>
@@ -156,7 +156,7 @@ const Navbar = () => {
 
             <SheetFooter>
               <SheetClose asChild>
-                <Link href={""}>
+                <Link href="/auth/login">
                 <button className="w-full h-11 rounded-[15px] border border-white mt-10">
                   <span className="text-[15.63px] leading-[150%] tracking-[7%] text-white font-medium flex items-center justify-center gap-3">
                     Register
