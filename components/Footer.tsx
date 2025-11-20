@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import Marquee from "react-fast-marquee";
 import {
   ArrowUp,
@@ -13,7 +13,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BiDumbbell } from "react-icons/bi";
 import { cn } from "@/lib/utils";
-
+ 
 export default function Footer() {
   return (
     <div
@@ -36,10 +36,10 @@ export default function Footer() {
                 </Link>
               </div>
             </div>
-
+ 
             <p className="text-base text-[#EEEEEE] text-center md:text-left font-satoshi">Nourish your body, strengthen your mind, and redefine your routine — <br className="hidden md:block" /> NutriFit brings intelligent wellness to your everyday life.</p>
           </div>
-
+ 
           {/* Middle Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-6 justify-between items-center md:items-start border-t border-[#EEEEEE33] gap-8 md:gap-0">
             {/* Left Section - Contact */}
@@ -52,7 +52,7 @@ export default function Footer() {
                   Chittagong, Bangladesh.
                 </span>
               </div>
-
+ 
               <div className="flex items-center gap-3 justify-start">
                 <div className=" w-[34px] border-2 border-[#F1BB78] h-[34px] flex items-center justify-center rounded-[10px]">
                   <IoMdMail className="w-4 h-4 text-[#FF833B]" />
@@ -61,7 +61,7 @@ export default function Footer() {
                   info@nutrifit.com.bd
                 </span>
               </div>
-
+ 
               <div className="flex items-center gap-3 justify-start">
                 <div className=" w-[34px] border-2 border-[#F1BB78] h-[34px] flex items-center justify-center rounded-[10px]">
                   <FaPhone className="w-4 h-4 text-[#FF833B]" />
@@ -69,14 +69,14 @@ export default function Footer() {
                 <span className="text-lg font-satoshi text-[#F7F2E9]">+880 123 456 7890</span>
               </div>
             </div>
-
+ 
             {/* Center Section - Title, Quote, Social */}
             <div className="flex flex-col items-center text-center px-4 sm:px-6 md:px-0">
               {/* Title */}
               <h2 className="text-[22px] sm:text-[27px] md:text-[30px] font-bold font-satoshi mb-4">
                 Subscribe to the newsletter
               </h2>
-
+ 
               {/* Input + Button */}
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-2 w-full max-w-md">
                 <input
@@ -90,7 +90,7 @@ export default function Footer() {
                   Subscribe
                 </button>
               </div>
-
+ 
               {/* Social Icons */}
               <div className="flex mt-6 gap-4 sm:gap-5">
                 <motion.div
@@ -100,7 +100,7 @@ export default function Footer() {
                 >
                   <FaFacebookF className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF833B]" />
                 </motion.div>
-
+ 
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -110,7 +110,7 @@ export default function Footer() {
                 </motion.div>
               </div>
             </div>
-
+ 
             {/* Right Section - Links */}
             <div className="order-3 md:col-span-2 lg:col-span-1 flex justify-center lg:justify-end text-center md:text-center lg:text-left mt-6 md:mt-0">
               <div className="flex flex-col gap-2">
@@ -140,7 +140,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="border-t border-[#FFFFFF33] pt-5"></div>
-
+ 
           <section className="mx-auto w-full">
             <Marquee gradient={false} speed={90} pauseOnHover={true} className="overflow-y-hidden">
               {/* Repeat blocks for smooth scroll */}
@@ -156,15 +156,15 @@ export default function Footer() {
               ))}
             </Marquee>
           </section>
-
-
+ 
+ 
           {/* Bottom Section */}
           <div className="mt-5 border-t border-[#FFFFFF33] pt-5 flex flex-col md:flex-row items-center justify-between text-xs text-[#EEEEEE] gap-4">
             {/* Left */}
             <div className="flex-1 text-center md:text-left font-satoshi">
               <p><span className="font-bold">@2025 NutriFit.</span> All rights reserved</p>
             </div>
-
+ 
             {/* Center */}
             <div className="flex-1 flex justify-center">
               <motion.button
@@ -177,11 +177,11 @@ export default function Footer() {
                 <ArrowUp className="w-4 h-4" /> Back To Top
               </motion.button>
             </div>
-
+ 
             {/* Right */}
             <div className="flex-1 flex justify-center md:justify-end gap-4 font-satoshi">
-              <Link href="/terms-of-use" className="hover:underline duration-200 text-[16px]">
-                Terms of Use
+              <Link href="/terms-of-service" className="hover:underline duration-200 text-[16px]">
+                Terms of Service
               </Link>
               <span>|</span>
               <Link href="/privacy-policy" className="hover:underline duration-200 text-[16px]">
