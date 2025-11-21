@@ -47,7 +47,7 @@ const data = [
 
 import { supabase } from "@/lib/supabaseClient";
 
-export async function signUpUser(formData) {
+export async function signUpUser(formData:any) {
 	const {
 		full_name,
 		email,
