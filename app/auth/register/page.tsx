@@ -73,7 +73,7 @@ export async function signUpUser(formData:any) {
 
 	// 2️⃣ Insert profile row
 	const { error: profileError } = await supabase.from("profiles").insert({
-		id: user.id,
+		id: user?.id,
 		full_name,
 		email,
 		phone,
