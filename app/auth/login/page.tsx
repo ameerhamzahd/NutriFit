@@ -15,6 +15,7 @@ import GoogleIcon from "@/components/icons/GoogleIcon";
 import { BiDumbbell } from "react-icons/bi";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabaseClient";
+import { useSearchParams } from "next/navigation";
 
 const data = [
   {
