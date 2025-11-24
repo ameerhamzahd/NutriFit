@@ -15,12 +15,14 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { BiDumbbell } from "react-icons/bi";
+import { supabase } from "@/lib/supabaseClient";
 
 const Navbar = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isPastThreshold, setIsPastThreshold] = useState(false);
+  const [user, setUser] = useState<any>(null); // Track logged-in user
 
   const links = [
     { href: "/" as const, label: "Home" },
@@ -34,13 +36,28 @@ const Navbar = () => {
     setSelectedIndex(index);
   };
 
+  // Check if user is logged in
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+
+    // Optional: subscribe to auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => listener?.subscription.unsubscribe();
+  }, []);
+
   // Scroll listener for hide/show navbar and color change
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const threshold = window.innerHeight * 0.9; // 90vh
 
-      // Hide/show navbar
       if (scrollY > lastScrollY && scrollY > 50) {
         setIsVisible(false);
       } else {
@@ -48,13 +65,22 @@ const Navbar = () => {
       }
       setLastScrollY(scrollY);
 
-      // Check if past 90vh threshold
       setIsPastThreshold(scrollY > threshold);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // Logout handler
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Logout Error:", error);
+      return;
+    }
+    window.location.href = "/auth/login";
+  };
 
   return (
     <header
@@ -67,17 +93,21 @@ const Navbar = () => {
       <div>
         <div className="">
           <Link href="/">
-            <h1 className={cn(
-              "text-xl md:text-3xl font-mono-trust-display flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300",
-              isPastThreshold 
-                ? "from-[#1A232D] to-[#FF6600]" 
-                : "from-[#EEEEEE] to-[#FF6600]"
-            )}>
+            <h1
+              className={cn(
+                "text-xl md:text-3xl font-mono-trust-display flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300",
+                isPastThreshold
+                  ? "from-[#1A232D] to-[#FF6600]"
+                  : "from-[#EEEEEE] to-[#FF6600]"
+              )}
+            >
               Nutri
-              <BiDumbbell className={cn(
-                "transition-colors duration-300",
-                isPastThreshold ? "text-[#1A232D]" : "text-[#EEEEEE]"
-              )}/>
+              <BiDumbbell
+                className={cn(
+                  "transition-colors duration-300",
+                  isPastThreshold ? "text-[#1A232D]" : "text-[#EEEEEE]"
+                )}
+              />
               Fit
             </h1>
           </Link>
@@ -108,14 +138,22 @@ const Navbar = () => {
 
       {/* Desktop Button */}
       <div className="max-lg:hidden">
-        <Link href="/auth/login">
-          <button className="pl-4 pr-1.5 py-[5px] rounded-full cursor-pointer border border-white text-white bg-[#0000004D] transition-all duration-300 ease-in-out">
-            <span className="text-lg leading-[150%] tracking-[7%] text-white font-medium flex items-center justify-center gap-3">
-              Get Started
-              <ArrowUpRight className="w-6 h-6 bg-[#FF833B] text-black rounded-full p-1" />
-            </span>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="px-6 py-2 rounded-full cursor-pointer border border-[#FF6600] bg-[#FF6600] text-white font-medium text-lg flex items-center gap-3 transition-all duration-300 ease-in-out hover:bg-[#ff7a1f] hover:border-[#ff7a1f]"
+          >
+            Logout
+            <ArrowUpRight className="w-5 h-5 bg-white text-[#FF6600] rounded-full p-[2px]" />
           </button>
-        </Link>
+        ) : (
+          <Link href="/auth/login">
+            <button className="px-6 py-2 rounded-full cursor-pointer border border-white bg-[#0000004D] text-white font-medium text-lg flex items-center gap-3 transition-all duration-300 ease-in-out hover:bg-[#FF6600] hover:text-black">
+              Get Started
+              <ArrowUpRight className="w-5 h-5 bg-[#FF833B] text-black rounded-full p-[2px]" />
+            </button>
+          </Link>
+        )}
       </div>
 
       {/* Mobile Menu */}
@@ -154,16 +192,26 @@ const Navbar = () => {
               </ul>
             </div>
 
+            {/* Mobile Logout Button in SheetFooter */}
             <SheetFooter>
-              <SheetClose asChild>
-                <Link href="/auth/login">
-                <button className="w-full h-11 rounded-[15px] border border-white mt-10">
-                  <span className="text-[15.63px] leading-[150%] tracking-[7%] text-white font-medium flex items-center justify-center gap-3">
-                    Register
-                    <ArrowUpRight className="w-6 h-6 rounded-full" />
-                  </span>
-                </button></Link>
-              </SheetClose>
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className="w-full h-12 rounded-full border border-[#FF6600] bg-[#FF6600] text-white font-medium flex items-center justify-center gap-3 text-lg transition-all duration-300 ease-in-out hover:bg-[#ff7a1f] hover:border-[#ff7a1f]"
+                >
+                  Logout
+                  <ArrowUpRight className="w-5 h-5 bg-white text-[#FF6600] rounded-full p-[2px]" />
+                </button>
+              ) : (
+                <SheetClose asChild>
+                  <Link href="/auth/login">
+                    <button className="w-full h-12 rounded-full border border-white bg-[#0000004D] text-white font-medium flex items-center justify-center gap-3 text-lg transition-all duration-300 ease-in-out hover:bg-[#FF6600] hover:text-black">
+                      Register
+                      <ArrowUpRight className="w-5 h-5 bg-[#FF833B] text-black rounded-full p-[2px]" />
+                    </button>
+                  </Link>
+                </SheetClose>
+              )}
             </SheetFooter>
           </SheetContent>
         </Sheet>
