@@ -9,7 +9,8 @@ import {
   Dumbbell,
   HeartPulse,
   Activity,
-  BarChart3
+  BarChart3,
+  User
 } from "lucide-react";
 
 const links = [
@@ -19,6 +20,7 @@ const links = [
   { href: "/dashboard/chat", label: "Coach", icon: HeartPulse },
   { href: "/dashboard/activity", label: "Activity", icon: Activity },
   { href: "/dashboard/progress", label: "Progress", icon: BarChart3 },
+  { href: "/dashboard/profile/update", label: "Profile", icon: User },
 ];
 
 export default function DashboardSidebar() {
@@ -27,14 +29,20 @@ export default function DashboardSidebar() {
   return (
     <>
       {/* DESKTOP SIDEBAR */}
-      <aside className="hidden md:flex fixed left-0 top-0 h-screen w-[250px] flex-col z-50"
-        style={{ backgroundColor: "#EEEEEE" }}>
+      <aside
+        className="hidden md:flex fixed left-0 top-0 h-screen w-[250px] flex-col z-50 shadow-[2px_0_10px_rgba(0,0,0,0.08)]"
+        style={{ backgroundColor: "#EEEEEE" }}
+      >
 
         {/* Brand */}
-        <Link href="/" ><div className="h-[60px] flex items-center px-6 font-bold text-lg border-b cursor-pointer"
-          style={{ borderColor: "rgba(238,238,238,0.1)", color: "#FF6600" }}>
-          NutriFit
-        </div></Link>
+        <Link href="/" >
+          <div
+            className="h-[60px] flex items-center px-6 font-bold text-lg border-b cursor-pointer"
+            style={{ borderColor: "rgba(0,0,0,0.05)", color: "#FF6600" }}
+          >
+            NutriFit
+          </div>
+        </Link>
 
         {/* Menu */}
         <nav className="flex-1 py-4">
@@ -64,17 +72,23 @@ export default function DashboardSidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 text-xs"
-          style={{ color: "#1A232D" }}>
+        <div
+          className="p-4 text-xs"
+          style={{ color: "#1A232D" }}
+        >
           Fuel your body. Train your mind.
         </div>
 
       </aside>
 
       {/* MOBILE BOTTOM NAV */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-[65px] flex z-50"
-        style={{ backgroundColor: "#1A232D", borderTop: "1px solid rgba(238,238,238,0.08)" }}>
-
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 h-[65px] flex z-50 shadow-[0_-2px_8px_rgba(0,0,0,0.25)]"
+        style={{
+          backgroundColor: "#1A232D",
+          borderTop: "1px solid rgba(238,238,238,0.08)",
+        }}
+      >
         <ul className="flex justify-around w-full items-center">
           {links.map((item) => {
             const Icon = item.icon;
@@ -85,7 +99,7 @@ export default function DashboardSidebar() {
                 <Link
                   href={item.href}
                   className="flex flex-col items-center text-[10px] transition"
-                  style={{ color: active ? "#1A232D" : "#EEEEEE" }}
+                  style={{ color: active ? "#FF6600" : "#EEEEEE" }}
                 >
                   <Icon size={20} />
                   {item.label}
@@ -94,7 +108,6 @@ export default function DashboardSidebar() {
             );
           })}
         </ul>
-
       </nav>
     </>
   );

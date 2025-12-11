@@ -34,12 +34,10 @@ export default function DashboardTopBar() {
       }
     };
 
-    // Get current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       fetchUserName(session?.user?.id);
     });
 
-    // Listen to auth state changes
     const { data: subscriptionData } = supabase.auth.onAuthStateChange(
       (_, session) => {
         fetchUserName(session?.user?.id);
@@ -54,7 +52,7 @@ export default function DashboardTopBar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-end px-6"
+      className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-end px-6 shadow-[0_2px_6px_rgba(0,0,0,0.1)]"
       style={{ backgroundColor: "#EEEEEE", color: "#1A232D" }}
     >
       <div
