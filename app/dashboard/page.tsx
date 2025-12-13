@@ -1,8 +1,44 @@
-export default function DashboardPage() {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold text-[#1A232D]">Dashboard</h1>
-      <p className="text-[#1A232D]">Welcome to your dashboard</p>
-    </div>
-  );
-}
+
+// //dashboard/page.tsx
+// "use client";
+// import { useState, useEffect } from "react";
+// import { User } from "@supabase/supabase-js";
+// import { supabase } from "@/lib/supabaseClient";
+// import DailyMealPlanCard from "./components/meal/DailyMealPlanCard";
+// import DailyWorkoutCard from "./components/workout/DailyWorkoutCard";
+
+// export default function DashboardPage() {
+// 	const [user, setUser] = useState<User | null>(null);
+// 	const [loading, setLoading] = useState(true);
+	
+// 	useEffect(() => {
+// 		// Function to fetch the current user's session once
+// 		async function getSessionUser() {
+// 			const {
+// 				data: { user },
+// 			} = await supabase.auth.getUser();
+// 			setUser(user);
+// 			setLoading(false);
+// 		}
+// 		getSessionUser();
+// 	}, []); // Only runs once on component mount
+
+// 	// --- Conditional Rendering ---
+// 	if (loading) {
+// 		return <p>Loading dashboard...</p>;
+// 	}
+
+// 	if (!user) {
+// 		return <p>Please login to view your dashboard.</p>;
+// 	}
+
+// 	// --- Render Logged-In State ---
+// 	return (
+// 		<div>
+// 			<DailyMealPlanCard userId={user.id} />
+// 			<DailyWorkoutCard userId={user.id} />
+// 			<h1 className="text-2xl font-bold text-[#1A232D]">Dashboard</h1>
+// 			<p className="text-[#1A232D]">Welcome back, {user.email}!</p>
+// 		</div>
+// 	);
+// }
