@@ -1,0 +1,17 @@
+// @/lib/supabaseAdminClient.ts
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+// You need this variable in your .env.local file!
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !serviceKey) {
+	throw new Error("Missing Supabase URL or Service Role Key in environment.");
+}
+
+// This client uses the secret key to bypass all RLS policies.
+export const supabaseAdmin = createClient(supabaseUrl, serviceKey, {
+	auth: {
+		persistSession: false,
+	},
+});
