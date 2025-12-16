@@ -28,8 +28,7 @@ export async function GET(req: NextRequest) {
 			.eq("id", userId)
 			.single();
 
-		console.log("Received userId:", userId);
-		console.log("Profile Fetch Error:", error);
+		
 
 		if (error) {
 			if (error.code === "PGRST116" || !profile) {

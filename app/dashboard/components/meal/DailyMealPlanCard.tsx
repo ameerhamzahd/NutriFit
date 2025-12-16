@@ -35,9 +35,8 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 		async function fetchMealPlan() {
 			try {
 				const res = await fetch("/api/meal-plan", {
-					method: "POST", // If your API is POST
-					// NOTE: If you converted your API to GET (secure cookie flow),
-					// change method to "GET" and remove the 'body' and 'headers' lines.
+					method: "POST", 
+					
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({ userId }),
 				});
@@ -45,11 +44,11 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 				const data = await res.json();
 
 				if (!res.ok) {
-					// Handle API errors (like 404 "Profile not found")
+					
 					throw new Error(data.error || "Failed to fetch meal plan.");
 				}
 
-				// The API returns { mealPlan: {...} }
+				
 				setMealPlanData(data.mealPlan);
 			} catch (err: any) {
 				setError(err.message || "An unknown error occurred.");

@@ -24,15 +24,15 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 	useEffect(() => {
 		async function fetchWorkoutPlan() {
 			try {
-				// NOTE: Using the secure, authenticated GET request approach
+				
 				const res = await fetch(`/api/workout-plan?userId=${userId}`);
 				const data = await res.json();
 
 				if (res.ok) {
-					// Access the 'workoutPlan' array nested within the data object
+					
 					setWorkoutPlan(data.workoutPlan || []);
 				} else {
-					// Handle API errors (like 404, 401, or error message from server)
+					
 					setError(data.error || "Failed to fetch workout plan.");
 				}
 			} catch (err) {
