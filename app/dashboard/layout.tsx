@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div style={{ backgroundColor: "#EEEEEE", color: "#1A232D" }} className="min-h-screen">
       <DashboardTopBar /> 
       <DashboardSidebar />
-      <main className="md:ml-[250px] pt-[60px] pb-[70px] p-6">
+      <main className="md:ml-[250px] pt-[60px] pb-[70px]">
         {children}
       </main>
     </div>

@@ -86,7 +86,7 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 	else goalMessage = "Balanced Training ⚖️";
 
 	return (
-		<div className="bg-white p-8 rounded-3xl shadow-2xl border-2 border-gray-100 relative overflow-hidden">
+		<div className="bg-white p-8 shadow-2xl border-2 border-gray-100 relative overflow-hidden">
 			{/* Glow accents */}
 			<div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-10 bg-[#BFFF00]" />
 			<div className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-10 bg-[#FF6600]" />
