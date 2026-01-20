@@ -1,131 +1,148 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { GoArrowDownRight } from "react-icons/go";
+import { Plus, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-type FAQ = {
-  id: number;
-  question: string;
-  short: string;
-  answer: string;
-  image?: string;
-};
+const faqs = [
+  {
+    question: "What is NutriFit?",
+    answer:
+      "NutriFit is a web-based platform that provides AI-powered personalized meal and workout plans, progress tracking, and an AI health coach. It helps users set fitness goals, track nutrition and workouts, and review weekly/monthly analytics to stay on track.",
+  },
+  {
+    question: "How do I create an account and sign in?",
+    answer:
+      "Users can create an account using email/password or supported social sign-ins. Sessions are secured using JWT tokens and all sensitive data is encrypted in transit and at rest. Admins can manage user accounts from the Admin Dashboard.",
+  },
+  {
+    question: "Can I customize meal and workout plans?",
+    answer:
+      "Yes — NutriFit's AI module generates meal and workout plans tailored to your fitness level, dietary preferences, allergies, and objectives. Plans can be adjusted manually or re-generated as your goals evolve.",
+  },
+  {
+    question: "What tracking features are available?",
+    answer:
+      "You can log meals, workouts, and water intake. The tracking feeds into progress analytics to show trends over time (calories, macros, workouts completed). Future integrations with wearable devices are planned for automatic activity sync.",
+  },
+  {
+    question: "How does the AI health coach work?",
+    answer:
+      "The AI health coach answers user questions, provides workout modifications, nutrition tips, and motivational guidance. It uses the user's profile and recent activity to provide contextual suggestions. Responses are surfaced in a chat interface with optional follow-up prompts.",
+  },
+  {
+    question: "What reports and analytics are provided?",
+    answer:
+      "NutriFit provides weekly and monthly reports that visualize calorie trends, workout frequency, hydration, and goal progress. Premium users get more advanced analytics and downloadable reports.",
+  },
+];
 
-export default function FAQs() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+export default function NutriFitFAQ() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const faqs: FAQ[] = [
-    {
-      id: 1,
-      question: "What is NutriFit?",
-      short: "Overview of the Smart Fitness & Diet Planner.",
-      answer:
-        "NutriFit is a web-based platform that provides AI-powered personalized meal and workout plans, progress tracking, and an AI health coach. It helps users set fitness goals, track nutrition and workouts, and review weekly/monthly analytics to stay on track.",
-    },
-    {
-      id: 2,
-      question: "How do I create an account and sign in?",
-      short: "Authentication and account creation details.",
-      answer:
-        "Users can create an account using email/password or supported social sign-ins. Sessions are secured using JWT tokens and all sensitive data is encrypted in transit and at rest. Admins can manage user accounts from the Admin Dashboard.",
-    },
-    {
-      id: 3,
-      question: "Can I customize meal and workout plans?",
-      short: "Personalized plans powered by AI.",
-      answer:
-        "Yes — NutriFit's AI module generates meal and workout plans tailored to your fitness level, dietary preferences, allergies, and objectives. Plans can be adjusted manually or re-generated as your goals evolve.",
-    },
-    {
-      id: 4,
-      question: "What tracking features are available?",
-      short: "Logging meals, workouts and water intake.",
-      answer:
-        "You can log meals, workouts, and water intake. The tracking feeds into progress analytics to show trends over time (calories, macros, workouts completed). Future integrations with wearable devices are planned for automatic activity sync.",
-    },
-    {
-      id: 5,
-      question: "How does the AI health coach work?",
-      short: "Chatbot guidance and suggestions.",
-      answer:
-        "The AI health coach answers user questions, provides workout modifications, nutrition tips, and motivational guidance. It uses the user's profile and recent activity to provide contextual suggestions. Responses are surfaced in a chat interface with optional follow-up prompts.",
-    },
-    {
-      id: 6,
-      question: "What reports and analytics are provided?",
-      short: "Weekly and monthly progress insights.",
-      answer:
-        "NutriFit provides weekly and monthly reports that visualize calorie trends, workout frequency, hydration, and goal progress. Premium users get more advanced analytics and downloadable reports.",
-    },
-  ];
+  const toggle = (index: number) =>
+    setActiveIndex(activeIndex === index ? null : index);
 
   return (
-    <section id="faq" className="max-w-[92%] mx-auto px-6 py-12 rounded-[20px]">
-      {/* Header */}
-      <div className="flex lg:flex-row flex-col gap-6 mb-8">
-        <div className="w-full flex flex-col items-center">
-          <span className="inline-block bg-[#1A232D] text-xs md:text-sm text-[#EEEEEE] font-medium px-4 py-1.5 rounded-[8px] mb-4">
-            FAQs
-          </span>
-          <h2 className="text-3xl md:text-6xl leading-[120%] font-semibold text-[#1A232D] text-center">
-            Frequently Asked Questions — NutriFit
-          </h2>
-          <p className="mt-8 text-[#1A232D]/75 max-w-3xl text-center text-base lg:text-xl">
-            Answers about features, security, roles, and how the AI-driven plans work.
-          </p>
-        </div>
-      </div>
+    <section id="faqs" className="py-4 pt-10 sm:py-5 md:py-12 w-11/12 mx-auto">
+      <div className="flex flex-col lg:flex-row w-full gap-8">
+        {/* Left side (heading/text) */}
+        <motion.div
+          className="w-full lg:w-1/2"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <div className="gap-6 md:mb-10">
+            <motion.div
+              className="flex mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="inline-block bg-[#1A232D] text-xs md:text-sm text-[#EEEEEE] font-medium px-4 py-1.5 rounded-[8px] mb-4">
+                Features
+              </span>
+            </motion.div>
 
-      {/* Content */}
-      <div className="max-w-6xl mx-auto">
+            {/* Heading */}
+            <motion.h2
+              className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="text-[#FF6600]">Your Questions</span>
+              <br />
+              <span className="text-black">Answered</span>
+            </motion.h2>
 
-        {/* Right - FAQ List */}
-        <div className="flex-1">
-          <ul className="divide-y divide-[#1A232D]/25 border border-[#1A232D]/25 rounded-lg overflow-hidden">
-            {faqs.map((faq, index) => (
-              <li
-                key={faq.id}
-                className={`transition-all duration-300 ${index === selectedIndex && "bg-transparent"}`}
-                onMouseEnter={() => setSelectedIndex(index)}
-                onMouseLeave={() => setSelectedIndex(null)}
-                onClick={() => setSelectedIndex(index === selectedIndex ? null : index)}
+            {/* Paragraph */}
+            <motion.p
+              className="text-2xl text-gray-500"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Answers about features, security, roles, <br className="hidden md:block" /> and how the AI-driven plans work.
+            </motion.p>
+          </div>
+        </motion.div>
+
+        {/* Right side (FAQ list) */}
+        <motion.div
+          className="w-full lg:w-2/3"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <motion.div className="space-y-4 w-full">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                className="box-border bg-white border-2 border-white rounded-2xl shadow-md transition-all w-full"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <div className="w-full flex items-center justify-between px-5 py-4 cursor-pointer">
-                  <div className="flex-1 pr-4">
-                    <p className="text-[#1A232D] text-lg lg:text-2xl font-medium leading-tight">{faq.question}</p>
-                    <p className="text-sm lg:text-lg text-[#1A232D]/75 mt-1">{faq.short}</p>
-                  </div>
+                <button
+                  onClick={() => toggle(i)}
+                  className="w-full flex items-center px-4 sm:px-6 py-3 sm:py-4 text-left text-black font-semibold text-xl sm:text-base focus:outline-none"
+                >
+                  {activeIndex === i ? (
+                    <X className="w-6 h-6 mr-3 shrink-0 text-orange-600 font-semibold" />
+                  ) : (
+                    <Plus className="w-6 h-6 mr-3 shrink-0 text-orange-600 font-semibold" />
+                  )}
+                  <span>{faq.question}</span>
+                </button>
 
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border border-[#1A232D]/25 ${index === selectedIndex ? "border-[#FF6600]" : ""}`}>
-                      <GoArrowDownRight
-                        size={18}
-                        className={`transition-transform duration-300 text-[#1A232D] ${index === selectedIndex ? "rotate-45 text-[#FF6600]" : ""}`}
-                        aria-hidden
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expanded Answer */}
-                <AnimatePresence>
-                  {index === selectedIndex && (
+                <AnimatePresence initial={false}>
+                  {activeIndex === i && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.1 }}
-                      className="px-5 pb-5 text-[#1A232D]"
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
                     >
-                      <p className="text-sm lg:text-lg leading-relaxed">{faq.answer}</p>
+                      <div className="px-4 sm:px-6 pb-4 sm:pb-5 text-black text-lg leading-relaxed">
+                        {faq.answer}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </li>
+              </motion.div>
             ))}
-          </ul>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

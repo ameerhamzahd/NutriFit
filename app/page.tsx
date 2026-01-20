@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <div className="mx-auto justify-center">
       <Banner />
-      <Idea />
       <Features />
+      <Idea />
       <FAQs />
     </div>
   );
