@@ -61,7 +61,7 @@ export default function FAQs() {
   ];
 
   return (
-    <section id="faq" className="max-w-[92%] mx-auto px-5 py-12 rounded-[20px] my-10">
+    <section id="faq" className="max-w-[92%] mx-auto px-6 py-12 rounded-[20px]">
       {/* Header */}
       <div className="flex lg:flex-row flex-col gap-6 mb-8">
         <div className="w-full flex flex-col items-center">

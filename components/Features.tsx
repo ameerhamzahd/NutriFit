@@ -2,216 +2,146 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
-import IconAuth from "./icons/IconAuth";
-import IconPlan from "./icons/IconPlan";
-import IconChat from "./icons/IconChat";
-import IconTrack from "./icons/IconTrack";
-import IconAnalytics from "./icons/IconAnalytics";
-import IconAdmin from "./icons/IconAdmin";
+import { motion } from "framer-motion";
+import "swiper/css";
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-type Feature = {
-  id: string;
-  title: string;
-  description: string;
-  preview?: React.ReactNode;
-  icon: React.ReactNode;
-};
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
+// Features data
+const featuresData = [
+  {
+    id: "01",
+    title: "AI-Powered Meals",
+    description:
+      "AI-generated meal plans tailored to your dietary preferences, goals, and nutritional needs.",
+    image: "/images/Features/AI Powered Meals.jpg",
   },
-};
-
-const cardVariant: Variants = {
-  hidden: { opacity: 0, y: 16, scale: 0.985 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1, 
-    transition: { 
-      type: "spring" as const, 
-      stiffness: 160, 
-      damping: 20 
-    } 
+  {
+    id: "02",
+    title: "Smart Workouts",
+    description:
+      "Personalized workout plans designed by AI based on your fitness level and available equipment.",
+    image: "/images/Features/Smart Workouts.jpg",
   },
-};
+  {
+    id: "03",
+    title: "AI Coach Assistant",
+    description:
+      "A 24/7 AI health coach offering guidance, motivation, and personalized support anytime.",
+    image: "/images/Features/AI Coach Assistant.jpg",
+  },
+  {
+    id: "04",
+    title: "Activity Tracking",
+    description:
+      "Track workouts, meals, hydration, and recovery to stay consistent and improve daily.",
+    image: "/images/Features/Activity Tracking.jpg",
+  },
+  {
+    id: "05",
+    title: "Progress Analytics",
+    description:
+      "Clear performance insights and progress analytics based on your consistency and results.",
+    image: "/images/Features/Progress Analytics.jpg",
+  },
+];
 
-const hover = {
-  whileHover: { y: -6, scale: 1.02, transition: { type: "spring" as const, stiffness: 300 } },
-};
 
-export default function Features() {
-  const features: Feature[] = [
-    {
-      id: "auth",
-      title: "User Authentication",
-      description: "Create and secure your NutriFit account with email, social sign-in, and secure sessions.",
-      icon: <IconAuth className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4">
-          <div className="flex items-center gap-2">
-            <div className="flex-1 text-xs text-slate-500">Signed in as</div>
-            <div className="rounded-full px-3 py-1 bg-white/80 text-sm font-medium border">ameerhamzahd</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "plans",
-      title: "Personalized Meal & Workout Plans",
-      description: "AI-generated plans based on fitness level, dietary preferences, and goals. Adjust anytime.",
-      icon: <IconPlan className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4 text-sm">
-          <div className="flex items-center justify-between">
-            <div className="text-slate-700 font-medium">Today • Cardio + Strength</div>
-            <div className="text-xs text-slate-500">Calories: 1750</div>
-          </div>
-          <ul className="mt-2 text-xs text-slate-500 space-y-1">
-            <li>• Oatmeal + berries (350 cal)</li>
-            <li>• HIIT 25 min</li>
-            <li>• Grilled chicken salad (450 cal)</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      id: "chatbot",
-      title: "AI Health Coach Chatbot",
-      description: "Ask the AI for nutrition tips, workout modifications, or motivation at any time.",
-      icon: <IconChat className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4">
-          <div className="bg-white/90 rounded-xl p-2 border text-sm text-slate-700">
-            <div className="text-xs text-slate-400 mb-1">AI Coach</div>
-            <div className="font-medium">Try: {`"`}Short workout for core strength?{`"`}</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "tracking",
-      title: "Water & Workout Tracking",
-      description: "Log workouts, water intake, and recovery to keep progress consistent.",
-      icon: <IconTrack className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4 flex items-center gap-3">
-          <div className="flex flex-col items-center">
-            <div className="w-14 h-14 rounded-full bg-white/95 flex items-center justify-center border">
-              <div className="text-sm font-semibold text-[#FF6600]">68%</div>
-            </div>
-            <div className="text-xs text-slate-500 mt-1">Water</div>
-          </div>
-          <div className="flex-1">
-            <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
-              <div className="h-2 bg-[#FF6600] w-[65%]" />
-            </div>
-            <div className="text-xs text-slate-500 mt-1">Workout Goal • 2/3 sessions</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "analytics",
-      title: "Progress Analytics & Reports",
-      description: "Weekly and monthly analytics to visualize progress, calorie trends and performance.",
-      icon: <IconAnalytics className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4 flex items-end gap-2">
-          <div className="w-5 h-8 bg-[#BFFF00]/25 rounded-t" />
-          <div className="w-5 h-16 bg-[#BFFF00] rounded-t" />
-          <div className="w-5 h-12 bg-[#BFFF00]/50 rounded-t" />
-          <div className="w-5 h-20 bg-[#BFFF00]/75 rounded-t" />
-        </div>
-      ),
-    },
-    {
-      id: "admin",
-      title: "Admin Dashboard",
-      description: "Monitor users, subscription tiers, and system health with admin tools.",
-      icon: <IconAdmin className="w-6 h-6" />,
-      preview: (
-        <div className="mt-4">
-          <div className="text-xs text-slate-500">Active users</div>
-          <div className="mt-3 flex items-center gap-2">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white/90 border">
-              <Image 
-                src="/images/Features/image-02.jpg" 
-                alt="User avatar"
-                fill
-                className="object-cover"
-                sizes="40px"
-              />
-            </div>
-            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white/90 border">
-              <Image 
-                src="/images/Features/image-01.jpg" 
-                alt="User avatar"
-                fill
-                className="object-cover"
-                sizes="40px"
-              />
-            </div>
-            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white/90 border">
-              <Image 
-                src="/images/Features/image-03.jpg" 
-                alt="User avatar"
-                fill
-                className="object-cover"
-                sizes="40px"
-              />
-            </div>
-            <div className="text-sm font-medium text-slate-700">+ 1,254</div>
-          </div>
-        </div>
-      ),
-    },
-  ];
-
+const Features = () => {
   return (
-    <section id="features" className="py-16 px-6">
-      <div className="md:max-w-[92%] mx-auto">
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={container}>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-6xl font-extrabold text-slate-900">Achieve your Health Objectives in 1-2-3</h2>
-            <p className="mt-8 text-slate-500 max-w-3xl mx-auto text-base lg:text-xl">NutriFit blends AI-planning, tracking, and analytics to help you stay consistent and progress faster.</p>
-          </div>
-
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" variants={container}>
-            {features.map((f) => (
-              <motion.article
-                key={f.id}
-                className="relative rounded-2xl p-6 bg-white/60 backdrop-blur-sm border border-slate-100 shadow-sm"
-                variants={cardVariant}
-                {...hover}
-                role="article"
-                aria-labelledby={`feature-${f.id}`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-[#FF6600]`} style={{ background: undefined }}>
-                    <div className="w-6 h-6 text-current">{f.icon}</div>
-                  </div>
-                  <div>
-                    <h3 id={`feature-${f.id}`} className="text-lg font-semibold text-slate-900">
-                      {f.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-slate-500">{f.description}</p>
-                    {f.preview}
-                  </div>
-                </div>
-
-                {/* subtle decorative pattern */}
-                <div className="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-white/5 blur-xl pointer-events-none" />
-              </motion.article>
-            ))}
-          </motion.div>
+    <section id="features" className="pt-12 lg:px-0 px-6 md:w-11/12 mx-auto">
+      <div className="mx-auto">
+        {/* Top Badge */}
+        <motion.div
+          className="flex justify-center mb-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="inline-block bg-[#1A232D] text-xs md:text-sm text-[#EEEEEE] font-medium px-4 py-1.5 rounded-[8px] mb-4">
+            Features
+          </span>
         </motion.div>
+
+        {/* Heading */}
+        <motion.div
+          className="text-center mb-6"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          <h2 className="text-3xl md:text-[64px] font-bold mb-4 leading-tight">
+            <div className="text-[#707070]">Achieve Your Health</div>
+            <div className="text-[#0A0A0A]">Objectives in 1-2-3</div>
+          </h2>
+          <p className="text-[#707070] md:text-2xl mx-auto">
+            NutriFit blends AI-planning, tracking, and analytics to help you{" "}
+            <br className="hidden md:block" />
+            stay consistent and progress faster.
+          </p>
+        </motion.div>
+
+        {/* Feature Cards with Swiper */}
+        <div className="max-w-7xl mx-auto mt-8">
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={24}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              0: { slidesPerView: 1.30 }, // Mobile
+              640: { slidesPerView: 2.1 }, // Small tablet
+              1024: { slidesPerView: 3.35 }, // Laptop
+            }}
+          >
+            {featuresData.map((feature, index) => (
+              <SwiperSlide key={feature.id} className="h-full pb-10">
+                <motion.div
+                  className="relative h-80 md:h-96 rounded-[50px] overflow-hidden group cursor-pointer"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 * index }}
+                >
+                  {/* Background Image */}
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+
+                  {/* Dark Overlay */}
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
+
+                  {/* Content */}
+                  <div className="relative h-full flex flex-col justify-between p-8 text-white">
+                    {/* Number */}
+                    <div className="flex items-start justify-between">
+                      <div className="text-[30px] md:text-[45px] font-bold text-white/90">
+                        {feature.id}
+                      </div>
+                    </div>
+
+                    {/* Bottom Content */}
+                    <div>
+                      <h3 className="font-semibold text-2xl md:text-[30px] mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="md:text-lg text-sm leading-relaxed opacity-90">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default Features;
