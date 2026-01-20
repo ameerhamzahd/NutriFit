@@ -228,20 +228,6 @@ export default function Page() {
             Continue your fitness journey
           </p>
 
-          {/* Show error from URL param */}
-          {errorParam === "not_registered" && (
-            <p className="text-red-500 text-center mb-4">
-              You are not registered. Please sign up first.
-            </p>
-          )}
-
-          {/* Error Message */}
-          {error && (
-            <div className="max-w-sm mx-auto mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600 text-center">{error}</p>
-            </div>
-          )}
-
           {/* Login Fields */}
           <form onSubmit={handleSubmit} className="space-y-4 max-w-sm mx-auto">
             <div className="space-y-2">

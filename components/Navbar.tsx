@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/sheet";
 import { BiDumbbell } from "react-icons/bi";
 import { supabase } from "@/lib/supabaseClient";
+import { Bounce, toast } from "react-toastify";
 
 const Navbar = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -29,7 +30,7 @@ const Navbar = () => {
     { href: "#idea" as const, label: "Idea" },
     { href: "#features" as const, label: "Features" },
     { href: "#faq" as const, label: "FAQs" },
-    { href: "/dashboard" as const, label: "Dashboard" },
+    ...(user ? [{ href: "/dashboard", label: "Dashboard" }] : []),
   ];
 
   const handleLinkClick = (index: number) => {
@@ -77,9 +78,22 @@ const Navbar = () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("Logout Error:", error);
+      toast.error("Failed to logout. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        transition: Bounce,
+        theme: "colored",
+      });
       return;
     }
-    window.location.href = "/auth/login";
+
+    // ✅ Show success toast
+    toast.success("Logged out successfully", {
+      position: "top-right",
+      autoClose: 1500,
+      transition: Bounce,
+      theme: "colored",
+    });
   };
 
   return (
