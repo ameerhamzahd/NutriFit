@@ -5,6 +5,11 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabaseClient";
 import DailyMealPlanCard from "./components/meal/DailyMealPlanCard";
 import DailyWorkoutCard from "./components/workout/DailyWorkoutCard";
+import TrackToday from "./components/TrackToday";
+import TomorrowPlan from "./components/TomorrowPlan";
+import WeeklyProgress from "./components/WeeklyProgress";
+import { HeartHandshake } from "lucide-react";
+import ConsistencyHeatmap from "./components/ConsistencyHeatap";
 
 export default function DashboardPage() {
 	const [user, setUser] = useState<User | null>(null);
@@ -34,8 +39,16 @@ export default function DashboardPage() {
 	// --- Render Logged-In State ---
 	return (
 		<div>
-			<DailyMealPlanCard userId={user.id} />
-			<DailyWorkoutCard userId={user.id} />
+			{/* <DailyMealPlanCard userId={user.id} />
+			<DailyWorkoutCard userId={user.id} /> */}
+
+			<TrackToday  userId={user.id} />
+
+			<TomorrowPlan userId={user.id} />
+			<WeeklyProgress userId={user.id} />
+
+		
+
 			<h1 className="text-2xl font-bold text-[#1A232D]">Dashboard</h1>
 			<p className="text-[#1A232D]">Welcome back!! {user.email}!</p>
 		</div>
