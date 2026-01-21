@@ -33,9 +33,7 @@ const DashboardContent: React.FC = () => {
   if (!user) return null; 
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-[#1A232D]">Dashboard</h1>
-      <p className="text-[#1A232D]">Welcome back, {user.email}!</p>
+    <div className="">
       <DailyMealPlanCard userId={user.id} />
       <DailyWorkoutCard userId={user.id} />
     </div>
