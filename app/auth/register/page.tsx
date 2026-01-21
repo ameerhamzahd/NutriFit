@@ -24,7 +24,7 @@ const data = [
 		description:
 			"Get personalized nutrition plans tailored to your fitness goals, dietary preferences, and lifestyle.",
 		btnText: "Start Your Journey →",
-		thumbnail: "/images/Auth/image-05.jpg",
+		thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024466/image-05_fhhqjh.jpg",
 	},
 	{
 		id: 2,
@@ -32,7 +32,7 @@ const data = [
 		description:
 			"Monitor workouts, water intake, and calories with real-time analytics and insights.",
 		btnText: "See Your Stats →",
-		thumbnail: "/images/Auth/image-04.jpg",
+		thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024466/image-04_ikw3a8.jpg",
 	},
 	{
 		id: 3,
@@ -40,7 +40,7 @@ const data = [
 		description:
 			"Get instant answers to nutrition questions, workout tips, and motivation whenever you need it.",
 		btnText: "Chat Now →",
-		thumbnail: "/images/Auth/image-03.jpg",
+		thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024465/image-03_pibfsk.jpg",
 	},
 ];
 
@@ -239,10 +239,9 @@ export default function RegisterPage() {
 								{/* Image Container */}
 								<div className="w-full h-[300px] bg-linear-to-br from-[#FF6600]/20 to-[#FF6600]/10 rounded-[10px] flex items-center justify-center">
 									<div className="w-11/12 h-full overflow-hidden mt-8 relative">
-										<Image
+										<img
 											src={item.thumbnail}
 											alt={item.title}
-											fill
 											className="object-cover rounded-t-[10px] shadow-lg"
 											sizes="(max-width: 768px) 100vw, 400px"
 										/>

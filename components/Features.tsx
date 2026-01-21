@@ -13,35 +13,35 @@ const featuresData = [
     title: "AI-Powered Meals",
     description:
       "AI-generated meal plans tailored to your dietary preferences, goals, and nutritional needs.",
-    image: "/images/Features/AI Powered Meals.jpg",
+    image: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024121/AI_Powered_Meals_ykimgw.jpg",
   },
   {
     id: "02",
     title: "Smart Workouts",
     description:
       "Personalized workout plans designed by AI based on your fitness level and available equipment.",
-    image: "/images/Features/Smart Workouts.jpg",
+    image: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024078/Smart_Workouts_ekc3un.jpg",
   },
   {
     id: "03",
     title: "AI Coach Assistant",
     description:
       "A 24/7 AI health coach offering guidance, motivation, and personalized support anytime.",
-    image: "/images/Features/AI Coach Assistant.jpg",
+    image: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024120/AI_Coach_Assistant_femku1.jpg",
   },
   {
     id: "04",
     title: "Activity Tracking",
     description:
       "Track workouts, meals, hydration, and recovery to stay consistent and improve daily.",
-    image: "/images/Features/Activity Tracking.jpg",
+    image: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024127/Activity_Tracking_tbbjtg.jpg",
   },
   {
     id: "05",
     title: "Progress Analytics",
     description:
       "Clear performance insights and progress analytics based on your consistency and results.",
-    image: "/images/Features/Progress Analytics.jpg",
+    image: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024079/Progress_Analytics_qnu4ny.jpg",
   },
 ];
 
@@ -102,10 +102,9 @@ const Features = () => {
                   transition={{ duration: 0.8, delay: 0.2 * index }}
                 >
                   {/* Background Image */}
-                  <Image
+                  <img
                     src={feature.image}
                     alt={feature.title}
-                    fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 

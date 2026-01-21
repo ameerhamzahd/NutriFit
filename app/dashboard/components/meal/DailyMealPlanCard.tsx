@@ -114,9 +114,8 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 	else if (fat > protein && fat > carbs) goalMessage = "Healthy Fats";
 	else goalMessage = "Balanced Nutrition";
 
-	return (
-		<>
-			<section className="pt-12 lg:px-0 px-6 md:w-11/12 mx-auto">
+	return (<>
+		<section className="pt-12 lg:px-0 px-6 md:w-11/12 mx-auto">
 				<div className="mx-auto">
 					{/* Top Badge */}
 					<div className="flex justify-center mb-2">
@@ -131,50 +130,53 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 							<div className="text-[#FF6600]">Today's Nutrition</div>
 						</h2>
 						<p className="text-[#707070] md:text-2xl mx-auto">
-							Target: {totalCalories} kcal — Fuel your fitness journey.
+							Personalized meals designed to fuel your fitness journey.
 						</p>
 					</div>
 
-					{/* Meal Cards with Swiper Integration */}
-					<div className="max-w-11/12 mx-auto mt-8">
-						<Swiper
-							spaceBetween={24}
-							breakpoints={{
-								0: { slidesPerView: 1.2 },
-								640: { slidesPerView: 2.1 },
-								1024: { slidesPerView: 3.35 },
-							}}
-						>
-							{mealPlanData.meals.map((meal, index) => (
-								<SwiperSlide key={index}>
-									<div
-										className="relative h-80 md:h-96 rounded-[25px] overflow-hidden group cursor-pointer"
-										onClick={() => setSelectedMeal(meal)}
-									>
-										<img
-											src={getMealImage(meal.name)}
-											alt={meal.name}
-											className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-										/>
-										<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300" />
+					{/* Meal Cards Grid */}
+					<div className="max-w-7xl mx-auto mt-8">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+							{mealPlanData.meals.slice(0, 4).map((meal, index) => (
+								<div
+									key={index}
+									className="relative h-80 md:h-96 rounded-[15px] overflow-hidden group cursor-pointer"
+								>
+									{/* Background Image */}
+									<img
+										src={getMealImage(meal.name)}
+										alt={meal.name}
+										className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+									/>
 
-										<div className="relative h-full flex flex-col justify-between p-8 text-white">
+									{/* Dark Overlay */}
+									<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
+
+									{/* Content */}
+									<div className="relative h-full flex flex-col justify-between p-6 text-white">
+										{/* Number/Badge */}
+										<div className="flex items-center justify-between">
 											<div className="text-[30px] md:text-[45px] font-bold text-white/90">
-												{String(index + 1).padStart(2, "0")}
-											</div>
-											<div>
-												<h3 className="font-semibold text-xl mb-3">
-													{meal.name}
-												</h3>
-												<p className="text-sm text-white/80">
-													{meal.calories} kcal
-												</p>
+												{String(index + 1).padStart(2, '0')}
 											</div>
 										</div>
+
+										{/* Bottom Content */}
+										<div>
+											<h3 className="font-semibold text-base md:text-lg mb-3">
+												{meal.name}
+											</h3>
+											<button
+												onClick={() => setSelectedMeal(meal)}
+												className="w-full bg-[#FF6600] hover:bg-[#ff7f33] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+											>
+												View Details
+											</button>
+										</div>
 									</div>
-								</SwiperSlide>
+								</div>
 							))}
-						</Swiper>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -189,14 +191,16 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
 						onClick={(e) => e.stopPropagation()}
 					>
+						{/* Close Button */}
 						<button
 							onClick={() => setSelectedMeal(null)}
-							className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10 cursor-pointer"
+							className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10"
 						>
 							<FaTimes size={16} className="text-gray-600" />
 						</button>
 
-						<div className="flex flex-col md:flex-row max-h-[90vh]">
+						{/* Desktop Layout */}
+						<div className="hidden md:flex flex-row max-h-[90vh]">
 							{/* Left Side - Content */}
 							<div className="flex-1 p-8 overflow-y-auto">
 								<h3 className="text-2xl font-bold text-[#1A232D] mb-6 pr-8">
@@ -223,32 +227,21 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 										</p>
 										<div className="space-y-3">
 											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-												<span className="font-medium text-gray-700">
-													Protein
-												</span>
-												<span className="font-bold text-[#BFFF00] bg-[#BFFF00]/20 px-3 py-1 rounded-full">
-													{Math.round(
-														(selectedMeal.calories / totalCalories) * protein,
-													)}
-													g
+												<span className="font-medium text-gray-700">Protein</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * protein)}g
 												</span>
 											</div>
 											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
 												<span className="font-medium text-gray-700">Carbs</span>
 												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
-													{Math.round(
-														(selectedMeal.calories / totalCalories) * carbs,
-													)}
-													g
+													{Math.round((selectedMeal.calories / totalCalories) * carbs)}g
 												</span>
 											</div>
 											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
 												<span className="font-medium text-gray-700">Fats</span>
-												<span className="font-bold text-gray-600 bg-gray-200 px-3 py-1 rounded-full">
-													{Math.round(
-														(selectedMeal.calories / totalCalories) * fat,
-													)}
-													g
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * fat)}g
 												</span>
 											</div>
 										</div>
@@ -257,21 +250,89 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 
 								<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
 									<p className="text-sm text-blue-800">
-										<strong>Note:</strong> Portion adjustment should be based on
-										your specific hunger levels and activity.
+										<strong>Note:</strong> This is a personalized meal plan. Adjust portions based on your hunger levels and activity for the day.
 									</p>
 								</div>
 							</div>
 
 							{/* Right Side - Image */}
-							<div className="md:w-[45%] flex flex-col items-center justify-center p-8 bg-gray-50">
+							<div className="md:w-[45%] flex flex-col items-center justify-center p-8">
 								<div className="w-full max-w-sm">
 									<img
 										src={getMealImage(selectedMeal.name)}
 										alt={selectedMeal.name}
-										className="w-full h-auto rounded-xl shadow-md"
+										className="w-full h-auto rounded-xl"
 									/>
-									<p className="text-center text-orange-600 text-sm mt-4 font-medium">
+									<p className="text-center text-orange-600 text-sm mt-4">
+										Enjoy your nutritious meal!
+									</p>
+								</div>
+							</div>
+						</div>
+
+						{/* Mobile Layout - Scrollable */}
+						<div className="md:hidden overflow-y-auto max-h-[90vh]">
+							{/* Content First */}
+							<div className="p-6">
+								<h3 className="text-xl font-bold text-[#1A232D] mb-6 pr-8">
+									{selectedMeal.name}
+								</h3>
+
+								<div className="space-y-6 mb-6">
+									<div className="bg-orange-50 p-6 rounded-xl border-2 border-orange-200">
+										<div className="flex items-center gap-3 mb-4">
+											<FaFireAlt size={24} className="text-orange-600" />
+											<p className="text-sm font-bold text-gray-700 uppercase">
+												Calories
+											</p>
+										</div>
+										<p className="text-4xl font-black text-orange-600">
+											{Math.round(selectedMeal.calories)}
+											<span className="text-lg text-gray-500 ml-2">kcal</span>
+										</p>
+									</div>
+
+									<div>
+										<p className="text-sm font-bold text-gray-700 mb-3 uppercase">
+											Estimated Macros
+										</p>
+										<div className="space-y-3">
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Protein</span>
+												<span className="font-bold text-[#BFFF00] bg-[#BFFF00]/20 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * protein)}g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Carbs</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * carbs)}g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Fats</span>
+												<span className="font-bold text-gray-600 bg-gray-200 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * fat)}g
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+										<p className="text-sm text-blue-800">
+											<strong>Note:</strong> This is a personalized meal plan. Adjust portions based on your hunger levels and activity for the day.
+										</p>
+									</div>
+								</div>
+
+								{/* Image After Scrolling */}
+								<div className="bg-gray-50 p-6 rounded-xl">
+									<img
+										src={getMealImage(selectedMeal.name)}
+										alt={selectedMeal.name}
+										className="w-full h-auto rounded-xl"
+									/>
+									<p className="text-center text-orange-600 text-sm mt-4">
 										Enjoy your nutritious meal!
 									</p>
 								</div>
@@ -281,5 +342,6 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 				</div>
 			)}
 		</>
+
 	);
 }

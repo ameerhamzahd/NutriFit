@@ -22,28 +22,28 @@ function getExerciseImage(name: string): string {
 	const nameLower = name.toLowerCase();
 
 	if (nameLower.includes("cardio") || nameLower.includes("running") || nameLower.includes("cycling")) {
-		return "/images/Exercizes/cardio.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023929/cardio_gffis2.jpg";
 	} else if (nameLower.includes("squat")) {
-		return "/images/Exercizes/squats.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023931/squats_dzzipu.jpg";
 	} else if (nameLower.includes("push-up") || nameLower.includes("pushup")) {
-		return "/images/Exercizes/pushup.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023960/plank_pca9vj.jpg";
 	} else if (nameLower.includes("plank")) {
-		return "/images/Exercizes/plank.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023930/pushup_jvsfpy.jpg";
 	} else if (nameLower.includes("bench press")) {
-		return "/images/Exercizes/bench-press.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023929/bench-press_bxlh5z.jpg";
 	} else if (nameLower.includes("deadlift")) {
-		return "/images/Exercizes/deadlift.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023951/deadlift_rlnzvm.jpg";
 	} else if (nameLower.includes("pull-up") || nameLower.includes("pullup")) {
-		return "/images/Exercizes/pullup.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023930/pullup_u7z0mo.jpg";
 	} else if (nameLower.includes("curl")) {
-		return "/images/Exercizes/bicep-curls.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023929/bicep-curls_hmi0aq.jpg";
 	} else if (nameLower.includes("stretch") || nameLower.includes("yoga")) {
-		return "/images/Exercizes/yoga.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023931/yoga_ws0x4h.jpg";
 	} else if (nameLower.includes("circuit")) {
-		return "/images/Exercizes/circuit.jpg";
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023956/circuit_l1s5ks.jpg";
 	}
 
-	return "/images/Exercizes/random.jpg";
+	return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023931/random_amrauz.jpg";
 }
 
 export default function DailyWorkoutCard({ userId }: { userId: string }) {
@@ -76,7 +76,7 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 
 	if (loading)
 		return (
-			<div className="p-8 rounded-3xl shadow-2xl border-2 border-gray-200 text-center">
+			<div className="p-8 text-center">
 				<div className="flex items-center justify-center space-x-3">
 					<div className="w-3 h-3 rounded-full animate-bounce bg-[#BFFF00]" />
 					<div className="w-3 h-3 rounded-full animate-bounce bg-[#BFFF00]" style={{ animationDelay: "0.1s" }} />

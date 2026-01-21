@@ -25,7 +25,7 @@ const data = [
     description:
       "Get personalized nutrition plans tailored to your fitness goals, dietary preferences, and lifestyle.",
     btnText: "Start Your Journey →",
-    thumbnail: "/images/Auth/image-01.jpg",
+    thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024465/image-01_xlg0sc.jpg",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const data = [
     description:
       "Monitor workouts, water intake, and calories with real-time analytics and insights.",
     btnText: "See Your Stats →",
-    thumbnail: "/images/Auth/image-02.jpg",
+    thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024466/image-02_txukka.jpg",
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const data = [
     description:
       "Get instant answers to nutrition questions, workout tips, and motivation whenever you need it.",
     btnText: "Chat Now →",
-    thumbnail: "/images/Auth/image-03.jpg",
+    thumbnail: "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769024465/image-03_pibfsk.jpg",
   },
 ];
 
@@ -147,10 +147,9 @@ export default function Page() {
                 {/* Image Container */}
                 <div className="w-full h-[300px] bg-linear-to-br from-[#FF6600]/20 to-[#FF6600]/10 rounded-[10px] flex items-center justify-center">
                   <div className="w-11/12 h-full overflow-hidden rounded-t-[10px] relative">
-                    <Image
+                    <img
                       src={item.thumbnail}
                       alt={item.title}
-                      fill
                       className="object-cover shadow-lg mt-5 rounded-t-[10px]"
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
