@@ -63,7 +63,7 @@ export default function NutriFitFAQ() {
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block bg-[#1A232D] text-xs md:text-sm text-[#EEEEEE] font-medium px-4 py-1.5 rounded-[8px] mb-4">
-                Features
+                FAQs
               </span>
             </motion.div>
 

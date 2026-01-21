@@ -178,7 +178,7 @@ export default function Footer() {
 
             {/* Right */}
             <div className="flex-1 flex justify-center md:justify-end gap-4 font-satoshi">
-              <Link href="/terms-of-use" className="hover:underline duration-200 text-[16px]">
+              <Link href="/terms-of-service" className="hover:underline duration-200 text-[16px]">
                 Terms of Use
               </Link>
               <span>|</span>

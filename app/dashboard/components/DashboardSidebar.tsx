@@ -10,7 +10,8 @@ import {
   HeartPulse,
   Activity,
   BarChart3,
-  User
+  User,
+  LogOut
 } from "lucide-react";
 
 const links = [
@@ -21,6 +22,7 @@ const links = [
   { href: "/dashboard/activity", label: "Activity", icon: Activity },
   { href: "/dashboard/progress", label: "Progress", icon: BarChart3 },
   { href: "/dashboard/profile/update", label: "Profile", icon: User },
+  { href: "/logout", label: "Logout", icon: LogOut },
 ];
 
 export default function DashboardSidebar() {
@@ -28,25 +30,44 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      {/* DESKTOP SIDEBAR */}
-      <aside
-        className="hidden md:flex fixed left-0 top-0 h-screen w-[250px] flex-col z-50 shadow-[2px_0_10px_rgba(0,0,0,0.08)]"
-        style={{ backgroundColor: "#EEEEEE" }}
-      >
+      <div className="md:mb-6">
+        {/* DESKTOP SIDEBAR */}
+        <aside
+          className="hidden md:flex h-screen lg:w-[275px] flex-col z-50 md:ml-6 rounded-[25px] bg-[#1A232D]/50 backdrop-blur-md"
+        >
+          {/* Menu */}
+          <nav className="flex-1 py-6">
+            <ul className="space-y-2 px-4">
+              {links.map((item) => {
+                const Icon = item.icon;
+                const active = pathname === item.href;
 
-        {/* Brand */}
-        <Link href="/" >
-          <div
-            className="h-[60px] flex items-center px-6 font-bold text-lg border-b cursor-pointer"
-            style={{ borderColor: "rgba(0,0,0,0.05)", color: "#FF6600" }}
-          >
-            NutriFit
-          </div>
-        </Link>
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "flex gap-4 items-center rounded-lg px-5 py-3.5 transition-all duration-200",
+                        active
+                          ? "shadow-md bg-linear-to-r from-[#FF6600] to-[#1A232D]/0 text-black"
+                          : "hover:bg-white/5"
+                      )}
+                    >
+                      <Icon size={20} strokeWidth={2} />
+                      <span className="text-sm font-medium md:hidden lg:block">{item.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </aside>
 
-        {/* Menu */}
-        <nav className="flex-1 py-4">
-          <ul className="space-y-1 px-3">
+        {/* MOBILE BOTTOM NAV */}
+        <nav
+          className="md:hidden fixed bottom-0 left-0 right-0 h-[70px] flex z-50 bg-[#1A232D]/50 backdrop-blur-md shadow-[0_-2px_10px_rgba(0,0,0,0.15)]"
+        >
+          <ul className="flex justify-around w-full items-center">
             {links.map((item) => {
               const Icon = item.icon;
               const active = pathname === item.href;
@@ -56,59 +77,21 @@ export default function DashboardSidebar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "flex gap-3 items-center rounded-md px-4 py-2 transition",
+                      "flex flex-col items-center gap-1 text-[9px] transition-all p-1",
                       active
-                        ? "bg-[#FF6600] text-[#1A232D]"
-                        : "hover:bg-[#ff66001a] text-[#1A232D]"
+                        ? "shadow-md bg-linear-to-b from-[#FF6600] to-[#1A232D]/0 rounded-t-lg text-black"
+                        : "hover:bg-white/5"
                     )}
                   >
-                    <Icon size={18} />
-                    <span className="text-sm">{item.label}</span>
+                    <Icon size={22} strokeWidth={2} />
+                    <span className="font-medium">{item.label}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
         </nav>
-
-        {/* Footer */}
-        <div
-          className="p-4 text-xs"
-          style={{ color: "#1A232D" }}
-        >
-          Fuel your body. Train your mind.
-        </div>
-
-      </aside>
-
-      {/* MOBILE BOTTOM NAV */}
-      <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 h-[65px] flex z-50 shadow-[0_-2px_8px_rgba(0,0,0,0.25)]"
-        style={{
-          backgroundColor: "#1A232D",
-          borderTop: "1px solid rgba(238,238,238,0.08)",
-        }}
-      >
-        <ul className="flex justify-around w-full items-center">
-          {links.map((item) => {
-            const Icon = item.icon;
-            const active = pathname === item.href;
-
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="flex flex-col items-center text-[10px] transition"
-                  style={{ color: active ? "#FF6600" : "#EEEEEE" }}
-                >
-                  <Icon size={20} />
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      </div>
     </>
   );
 }

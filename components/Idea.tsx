@@ -124,7 +124,7 @@ export default function NutrifitIdeaSection() {
                                 Idea
                             </span>
                         </div>
-                        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold">
+                        <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight mb-4">
                             <span className="text-[#FF6600]">Premium Exercises for</span>
                             <br />
                             <span className="text-white">Fitness Passionate</span>

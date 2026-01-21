@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
+import Link from "next/link";
 
 export default function DashboardTopBar() {
   const [isHovered, setIsHovered] = useState(false);
@@ -52,37 +53,37 @@ export default function DashboardTopBar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-end px-6 shadow-[0_2px_6px_rgba(0,0,0,0.1)]"
-      style={{ backgroundColor: "#EEEEEE", color: "#1A232D" }}
+      className="flex items-center justify-between py-6 md:py-6 lg:p-6 max-w-11/12 mx-auto gap-6"
     >
-      <div
-        className="relative w-8 h-8"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {/* Avatar */}
+      {/* Brand */}
+      <Link href="/">
         <div
-          className="w-full h-full flex items-center justify-center rounded-full bg-gradient-to-br from-[#FF6600] to-[#FF9933] cursor-default"
-          style={{ color: "#1A232D" }}
+          className="text-sm md:text-base lg:text-2xl font-unbounded font-bold flex items-center justify-center bg-linear-to-r from-[#1A232D] to-[#FF6600] bg-clip-text text-transparent transition-all duration-300"
         >
-          <User size={18} />
+          NutriFit
         </div>
+      </Link>
 
-        {/* Tooltip */}
-        {isHovered && name && (
-          <div className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2">
-            <div
-              className="px-3 py-1.5 text-xs rounded whitespace-nowrap"
-              style={{
-                backgroundColor: "#F0F0F0",
-                color: "#1A232D",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-              }}
-            >
-              {name}
-            </div>
+      <h1 className="relative md:-left-10 lg:-left-85 text-sm md:text-base lg:text-2xl font-medium font-unbounded">
+        Welcome Back,
+        <span className="text-[#FF6600]"> {name?.split(" ")[0]}</span>!
+      </h1>
+
+      {/* Log Out */}
+      <div className="text-[#FF6600] cursor-pointer hover:scale-105 transition-transform gap-2">
+        {/* <p><span><LogOut size={20 }/></span></p> */}
+        {/* <div className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2">
+          <div
+            className="px-3 py-1.5 text-xs rounded whitespace-nowrap"
+            style={{
+              backgroundColor: "#F0F0F0",
+              color: "#1A232D",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+            }}
+          >
+            Log Out
           </div>
-        )}
+        </div> */}
       </div>
     </header>
   );

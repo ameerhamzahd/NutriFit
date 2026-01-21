@@ -71,9 +71,9 @@ const Features = () => {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <h2 className="text-3xl md:text-[64px] font-bold mb-4 leading-tight">
-            <div className="text-[#FF6600]">Achieve Your Health</div>
-            <div className="text-[#0A0A0A]">Objectives in 1-2-3</div>
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight mb-4">
+            <div className="text-[#FF6600]">Smart Features</div>
+            <div className="text-[#0A0A0A]">Smarter Results</div>
           </h2>
           <p className="text-[#707070] md:text-2xl mx-auto">
             NutriFit blends AI-planning, tracking, and analytics to help you{" "}
