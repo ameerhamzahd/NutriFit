@@ -144,7 +144,7 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 							spaceBetween={24}
 							breakpoints={{
 								0: { slidesPerView: 1.30 },
-								640: { slidesPerView: 2.1 },
+								640: { slidesPerView: 2.30 },
 								1024: { slidesPerView: 3.35 },
 							}}
 						>
@@ -174,17 +174,6 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 												<div className="text-[30px] md:text-[45px] font-bold text-white/90">
 													{String(index + 1).padStart(2, '0')}
 												</div>
-												{exercise.sets && exercise.reps && (
-													<div className="bg-orange-100 text-orange-600 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
-														{exercise.sets}×{exercise.reps}
-													</div>
-												)}
-												{exercise.duration && (
-													<div className="bg-orange-100 text-orange-600 backdrop-blur-sm px-3 py-1 rounded-full text-sm flex items-center gap-1">
-														<FaClock size={12} />
-														{exercise.duration} min
-													</div>
-												)}
 											</div>
 
 											{/* Bottom Content */}
@@ -192,18 +181,6 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 												<h3 className="font-semibold text-xl mb-3">
 													{exercise.name}
 												</h3>
-												<div className="flex flex-wrap gap-2">
-													{exercise.targetMuscles.slice(0, 2).map((muscle, i) => (
-														<span key={i} className="text-sm opacity-90 bg-orange-100 text-orange-600 backdrop-blur-sm px-3 py-1 rounded-full capitalize">
-															{muscle}
-														</span>
-													))}
-													{exercise.targetMuscles.length > 2 && (
-														<span className="text-sm opacity-90 bg-orange-100 text-orange-600 backdrop-blur-sm px-3 py-1 rounded-full">
-															+{exercise.targetMuscles.length - 2}
-														</span>
-													)}
-												</div>
 											</div>
 										</div>
 									</div>
@@ -225,6 +202,12 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div className="flex flex-col md:flex-row max-h-[90vh]">
+							<button
+								onClick={() => setSelectedExercise(null)}
+								className="w-8 h-8 flex items-end justify-end rounded-lg transition-all z-10 cursor-pointer"
+							>
+								<FaTimes size={20} className="text-gray-600" />
+							</button>
 							{/* Left Side - Content */}
 							<div className="flex-1 p-8 overflow-y-auto">
 								<h3 className="text-2xl font-bold text-[#1A232D] mb-6 pr-8">
@@ -293,12 +276,6 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 
 							{/* Right Side - Image */}
 							<div className="md:w-[45%] flex flex-col items-center justify-center p-8 relative">
-								<button
-									onClick={() => setSelectedExercise(null)}
-									className="absolute top-4 right-4 w-8 h-8 flex items-center justify-centerrounded-lg transition-all z-10 cursor-pointer"
-								>
-									<FaTimes size={20} className="text-gray-600" />
-								</button>
 								<div className="w-full max-w-sm">
 									<img
 										src={selectedExercise.gifUrl || getExerciseImage(selectedExercise.name)}

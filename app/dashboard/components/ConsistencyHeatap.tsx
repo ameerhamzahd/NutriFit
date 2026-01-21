@@ -12,9 +12,9 @@ export default function ConsistencyHeatmap({
 	return (
 		<div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
 			<div className="flex justify-between items-center mb-6">
-				<div className="flex items-center gap-2">
+				<div className="flex items-center justify-center gap-2">
 					<FaFire className="text-orange-500" />
-					<h3 className="font-black text-sm uppercase text-[#1A232D]">
+					<h3 className="text-xl sm:text-2xl font-black text-[#1A232D] flex items-center gap-2">
 						Consistency Map
 					</h3>
 				</div>

@@ -71,7 +71,7 @@ export default function TomorrowPlan({ userId }: { userId: string }) {
 					<div>
 						<div className="flex items-center gap-3 mb-1">
 							<FaCalendarPlus className="text-[#BFFF00]" size={20} />
-							<h2 className="text-xl font-black uppercase tracking-tight">
+							<h2 className="text-xl sm:text-2xl font-black text-[#EEEEEE] flex items-center gap-2">
 								Tomorrow's Strategy
 							</h2>
 						</div>
