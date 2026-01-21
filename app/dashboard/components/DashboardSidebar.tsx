@@ -13,6 +13,7 @@ import {
   User,
   LogOut
 } from "lucide-react";
+import { BiDumbbell } from "react-icons/bi";
 
 const links = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -30,37 +31,54 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      <div className="md:mb-6">
+      <div className="">
         {/* DESKTOP SIDEBAR */}
         <aside
-          className="hidden md:flex h-screen lg:w-[275px] flex-col z-50 md:ml-6 rounded-[25px] bg-[#1A232D]/50 backdrop-blur-md"
+          className="hidden h-screen md:flex md:w-[80px] lg:w-[275px] flex-col z-50 md:ml-6 rounded-t-[25px] bg-[#BFFF00]/25 backdrop-blur-md"
         >
-          {/* Menu */}
-          <nav className="flex-1 py-6">
-            <ul className="space-y-2 px-4">
-              {links.map((item) => {
-                const Icon = item.icon;
-                const active = pathname === item.href;
+          <div>
+            {/* Menu */}
+            <nav className="flex-1 py-6">
+              {/* Brand */}
+              <Link href="/">
+                <div
+                  className="text-sm md:text-base lg:text-2xl font-unbounded font-bold flex items-center justify-center bg-linear-to-r from-[#1A232D] to-[#FF6600] bg-clip-text text-transparent transition-all duration-300 pb-4"
+                >
+                  Nutri
+                  <BiDumbbell
+                    className={cn(
+                      "transition-colors duration-300 text-[#1A232D]"
+                    )}
+                  />
+                  Fit
+                </div>
+              </Link>
 
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "flex gap-4 items-center rounded-lg px-5 py-3.5 transition-all duration-200",
-                        active
-                          ? "shadow-md bg-linear-to-r from-[#FF6600] to-[#1A232D]/0 text-black"
-                          : "hover:bg-white/5"
-                      )}
-                    >
-                      <Icon size={20} strokeWidth={2} />
-                      <span className="text-sm font-medium md:hidden lg:block">{item.label}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+              <ul className="space-y-2 px-4 pt-4">
+                {links.map((item) => {
+                  const Icon = item.icon;
+                  const active = pathname === item.href;
+
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "flex gap-4 items-center rounded-lg px-5 py-3.5 transition-all duration-200",
+                          active
+                            ? "shadow-md bg-linear-to-r from-[#FF6600] to-[#BFFF00]/0 text-black"
+                            : "hover:bg-white/5"
+                        )}
+                      >
+                        <Icon size={20} strokeWidth={2} />
+                        <span className="text-sm font-medium md:hidden lg:block">{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </div>
         </aside>
 
         {/* MOBILE BOTTOM NAV */}

@@ -22,7 +22,7 @@ export default function WorkoutPlan() {
 
 	if (loading) {
 		return (
-			<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-gray-50 to-white">
+			<div className="min-h-screen flex items-center justify-center">
 				<div className="text-center">
 					<div className="flex items-center justify-center space-x-3 mb-4">
 						<div className="w-4 h-4 rounded-full animate-bounce" style={{ backgroundColor: '#BFFF00' }}></div>
@@ -39,7 +39,7 @@ export default function WorkoutPlan() {
 
 	if (!user) {
 		return (
-			<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-gray-50 to-white">
+			<div className="min-h-screen flex items-center justify-center">
 				<div className="text-center p-8 bg-white rounded-3xl shadow-2xl border-2 border-gray-200 max-w-md">
 					<div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF8833 100%)' }}>
 						<Dumbbell className="text-white" size={32} />
@@ -56,25 +56,25 @@ export default function WorkoutPlan() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-			{/* Decorative Background Elements */}
-			<div className="absolute top-20 right-10 w-72 h-72 rounded-full blur-3xl opacity-10 pointer-events-none" style={{ backgroundColor: '#BFFF00' }}></div>
-			<div className="absolute bottom-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-10 pointer-events-none" style={{ backgroundColor: '#FF6600' }}></div>
+		<div className="relative pb-12">
+			{/* Glow accents */}
+			<div className="absolute top-0 right-10 w-80 h-80 rounded-full blur-3xl opacity-10 bg-[#BFFF00]" />
+			<div className="absolute bottom-0 left-10 w-80 h-80 rounded-full blur-3xl opacity-10 bg-[#FF6600]" />
 
 			{/* Header Section */}
-			<div className="max-w-4xl mx-auto text-center mb-12 relative z-10">
+			<div className="max-w-5xl mx-auto text-center relative pb-6">
 				<div className="inline-block mb-6">
-					<div className="flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-lg border-2 border-gray-200">
+					<div className="flex items-center gap-3 px-3 py-2 bg-white rounded-full shadow-lg border-2 border-gray-200">
 						<Sparkles size={20} style={{ color: '#BFFF00' }} />
-						<span className="text-sm font-bold uppercase tracking-wide" style={{ color: '#1A232D' }}>
+						<span className="text-xs font-bold uppercase tracking-wide text-[#1A232D]">
 							Personalized For You
 						</span>
 					</div>
 				</div>
 
-				<h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4" style={{ color: '#1A232D' }}>
+				<h1 className="text-5xl md:text-6xl font-black tracking-tight mb-4 text-[#1A232D]">
 					Your Daily
-					<span className="block mt-2 text-transparent bg-clip-text" style={{ 
+					<span className="block mt-2 text-transparent bg-clip-text" style={{
 						background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)',
 						WebkitBackgroundClip: 'text',
 						WebkitTextFillColor: 'transparent'
@@ -89,24 +89,24 @@ export default function WorkoutPlan() {
 			</div>
 
 			{/* Stats Cards Row */}
-			<div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 relative z-10">
+			<div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 relative">
 				{/* Stat 1 */}
-				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105">
+				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl">
 					<div className="flex items-center gap-3 mb-2">
-						<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
-							<Target size={20} style={{ color: '#1A232D' }} />
+						<div className="w-10 h-10 rounded-xl flex items-center justify-center text-[#1A232D]" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
+							<Target size={20} />
 						</div>
 						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
 							Focus
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-2xl font-black text-[#1A232D]">
 						Tailored Workouts
 					</p>
 				</div>
 
 				{/* Stat 2 */}
-				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105">
+				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl">
 					<div className="flex items-center gap-3 mb-2">
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF8833 100%)' }}>
 							<TrendingUp className="text-white" size={20} />
@@ -115,39 +115,39 @@ export default function WorkoutPlan() {
 							Progress
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-2xl font-black text-[#1A232D]">
 						Track Performance
 					</p>
 				</div>
 
 				{/* Stat 3 */}
-				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105">
+				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl">
 					<div className="flex items-center gap-3 mb-2">
-						<div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-200">
-							<Dumbbell size={20} style={{ color: '#1A232D' }} />
+						<div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-200 text-[#1A232D]">
+							<Dumbbell size={20} />
 						</div>
 						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
 							Strength
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-2xl font-black text-[#1A232D]">
 						Build Muscle
 					</p>
 				</div>
 			</div>
 
 			{/* Workout Card */}
-			<div className="max-w-4xl mx-auto relative z-10">
+			<div className="relative">
 				<DailyWorkoutCard userId={user.id} />
 			</div>
 
 			{/* Footer Tip Section */}
-			<div className="max-w-4xl mx-auto mt-12 relative z-10">
-				<div className="bg-gradient-to-r from-gray-50 to-white p-8 rounded-3xl shadow-lg border-2 border-gray-200 text-center">
-					<div className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
-						<TrendingUp size={24} style={{ color: '#1A232D' }} />
+			<div className="max-w-11/12 mx-auto mt-12 relative">
+				<div className=" p-8 rounded-3xl text-center">
+					<div className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center text-[#1A232D]">
+						<TrendingUp size={24} />
 					</div>
-					<h3 className="text-xl font-black mb-2" style={{ color: '#1A232D' }}>
+					<h3 className="text-xl font-black mb-2 text-[#1A232D]">
 						Pro Tip: Stay Consistent
 					</h3>
 					<p className="text-gray-600 font-medium text-lg">
