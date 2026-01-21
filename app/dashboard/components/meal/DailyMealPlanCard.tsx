@@ -3,21 +3,27 @@ import { useEffect, useState } from "react";
 import { FaTimesCircle, FaFireAlt, FaUtensils, FaTimes } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { getBangladeshDate } from "@/lib/dateUtils"; // 🛑 Ensure this import exists
+import { getBangladeshDate } from "@/lib/dateUtils";
 
 type MealDetail = { name: string; calories: number };
 type Macro = { protein_g: number; carbs_g: number; fat_g: number };
 type MealPlanData = { calories: number; macros: Macro; meals: MealDetail[] };
 
+// Function to get meal image based on meal name
 function getMealImage(name: string): string {
 	const nameLower = name.toLowerCase();
-	if (nameLower.includes("breakfast"))
-		return "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&h=300&fit=crop";
-	if (nameLower.includes("lunch"))
-		return "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop";
-	if (nameLower.includes("dinner"))
-		return "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop";
-	return "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop";
+
+	if (nameLower.includes("breakfast") || nameLower.includes("morning")) {
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023694/breakfast_gurryp.jpg";
+	} else if (nameLower.includes("lunch")) {
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023694/lunch_pb1dyg.jpg";
+	} else if (nameLower.includes("dinner")) {
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023694/dinner_surck6.jpg";
+	} else if (nameLower.includes("snack")) {
+		return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023694/snacks_n3l6ad.jpg";
+	}
+
+	return "https://res.cloudinary.com/dgt4ygjhp/image/upload/v1769023696/random_cx1fzu.jpg";
 }
 
 export default function DailyMealPlanCard({ userId }: { userId: string }) {
@@ -29,21 +35,21 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 	useEffect(() => {
 		async function fetchMealPlan() {
 			try {
-				const todayStr = getBangladeshDate(0); // 🛑 Fix: Get current date string
+				// Keep functional logic: Get BD Date string
+				const todayStr = getBangladeshDate(0);
 
 				const res = await fetch("/api/meal-plan", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						userId,
-						date: todayStr, // 🛑 Fix: Pass date to API
+						date: todayStr, // Functional requirement maintained
 					}),
 				});
 
 				const data = await res.json();
 				if (!res.ok)
 					throw new Error(data.error || "Failed to fetch meal plan.");
-
 				setMealPlanData(data.mealPlan);
 			} catch (err: any) {
 				console.error("Fetch Error:", err);
@@ -55,63 +61,225 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 		if (userId) fetchMealPlan();
 	}, [userId]);
 
-	// ... (Keep your existing loading and error UI blocks)
-
 	if (loading)
 		return (
-			<div className="p-8 text-center animate-pulse">Loading Nutrition...</div>
-		);
-	if (error)
-		return (
-			<div className="p-6 text-red-600 border border-red-200 rounded-xl">
-				{error}
+			<div className="p-8 text-center">
+				<div className="flex items-center justify-center space-x-3">
+					<div className="w-3 h-3 rounded-full animate-bounce bg-[#BFFF00]" />
+					<div
+						className="w-3 h-3 rounded-full animate-bounce bg-[#BFFF00]"
+						style={{ animationDelay: "0.1s" }}
+					/>
+					<div
+						className="w-3 h-3 rounded-full animate-bounce bg-[#BFFF00]"
+						style={{ animationDelay: "0.2s" }}
+					/>
+				</div>
+				<p className="text-gray-600 mt-4 font-medium">
+					Loading your meal plan...
+				</p>
 			</div>
 		);
-	if (!mealPlanData) return null;
+
+	if (error)
+		return (
+			<div className="p-6 rounded-3xl shadow-xl border-2 border-red-300 flex items-center gap-3 text-red-700">
+				<FaTimesCircle size={24} />
+				<div>
+					<p className="font-bold text-lg">Error Loading Plan</p>
+					<p className="text-sm text-red-600 mt-1">{error}</p>
+				</div>
+			</div>
+		);
+
+	if (!mealPlanData || !mealPlanData.meals || mealPlanData.meals.length === 0) {
+		return (
+			<div className="p-8 rounded-3xl shadow-xl border-2 border-gray-200 text-center">
+				<FaUtensils size={48} className="mx-auto mb-4 text-gray-400" />
+				<p className="text-gray-600 font-medium">
+					No meal plan available. Set your fitness goal to get started!
+				</p>
+			</div>
+		);
+	}
 
 	const protein = mealPlanData.macros?.protein_g || 0;
 	const carbs = mealPlanData.macros?.carbs_g || 0;
 	const fat = mealPlanData.macros?.fat_g || 0;
 	const totalCalories = Math.round(mealPlanData.calories);
 
-	return (
-		<section className="pt-12 lg:px-0 px-6 md:w-11/12 mx-auto">
-			{/* ... (Your existing JSX for Heading and Swiper) */}
-			<div className="text-center mb-6">
-				<h2 className="text-4xl font-black text-[#FF6600]">
-					Today's Nutrition
-				</h2>
-				<p className="text-gray-500">Target: {totalCalories} kcal</p>
-			</div>
+	let goalMessage = "";
+	if (protein > carbs && protein > fat) goalMessage = "High Protein";
+	else if (carbs > protein && carbs > fat) goalMessage = "Carb Focus";
+	else if (fat > protein && fat > carbs) goalMessage = "Healthy Fats";
+	else goalMessage = "Balanced Nutrition";
 
-			<Swiper
-				spaceBetween={24}
-				breakpoints={{
-					0: { slidesPerView: 1.2 },
-					1024: { slidesPerView: 3.35 },
-				}}
-			>
-				{mealPlanData.meals.map((meal, index) => (
-					<SwiperSlide key={index}>
-						<div
-							className="relative h-80 rounded-[25px] overflow-hidden group cursor-pointer"
-							onClick={() => setSelectedMeal(meal)}
+	return (
+		<>
+			<section className="pt-12 lg:px-0 px-6 md:w-11/12 mx-auto">
+				<div className="mx-auto">
+					{/* Top Badge */}
+					<div className="flex justify-center mb-2">
+						<span className="inline-block bg-[#1A232D] text-xs md:text-sm text-[#EEEEEE] font-medium px-4 py-1.5 rounded-[8px] mb-4">
+							{goalMessage}
+						</span>
+					</div>
+
+					{/* Heading */}
+					<div className="text-center mb-6">
+						<h2 className="text-5xl md:text-6xl font-black tracking-tight mb-4">
+							<div className="text-[#FF6600]">Today's Nutrition</div>
+						</h2>
+						<p className="text-[#707070] md:text-2xl mx-auto">
+							Target: {totalCalories} kcal — Fuel your fitness journey.
+						</p>
+					</div>
+
+					{/* Meal Cards with Swiper Integration */}
+					<div className="max-w-11/12 mx-auto mt-8">
+						<Swiper
+							spaceBetween={24}
+							breakpoints={{
+								0: { slidesPerView: 1.2 },
+								640: { slidesPerView: 2.1 },
+								1024: { slidesPerView: 3.35 },
+							}}
 						>
-							<img
-								src={getMealImage(meal.name)}
-								className="absolute inset-0 w-full h-full object-cover"
-							/>
-							<div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all" />
-							<div className="relative p-6 text-white">
-								<h3 className="text-2xl font-bold">{meal.name}</h3>
-								<p>{meal.calories} kcal</p>
+							{mealPlanData.meals.map((meal, index) => (
+								<SwiperSlide key={index}>
+									<div
+										className="relative h-80 md:h-96 rounded-[25px] overflow-hidden group cursor-pointer"
+										onClick={() => setSelectedMeal(meal)}
+									>
+										<img
+											src={getMealImage(meal.name)}
+											alt={meal.name}
+											className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+										/>
+										<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300" />
+
+										<div className="relative h-full flex flex-col justify-between p-8 text-white">
+											<div className="text-[30px] md:text-[45px] font-bold text-white/90">
+												{String(index + 1).padStart(2, "0")}
+											</div>
+											<div>
+												<h3 className="font-semibold text-xl mb-3">
+													{meal.name}
+												</h3>
+												<p className="text-sm text-white/80">
+													{meal.calories} kcal
+												</p>
+											</div>
+										</div>
+									</div>
+								</SwiperSlide>
+							))}
+						</Swiper>
+					</div>
+				</div>
+			</section>
+
+			{/* Modal */}
+			{selectedMeal && (
+				<div
+					className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+					onClick={() => setSelectedMeal(null)}
+				>
+					<div
+						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<button
+							onClick={() => setSelectedMeal(null)}
+							className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10 cursor-pointer"
+						>
+							<FaTimes size={16} className="text-gray-600" />
+						</button>
+
+						<div className="flex flex-col md:flex-row max-h-[90vh]">
+							{/* Left Side - Content */}
+							<div className="flex-1 p-8 overflow-y-auto">
+								<h3 className="text-2xl font-bold text-[#1A232D] mb-6 pr-8">
+									{selectedMeal.name}
+								</h3>
+
+								<div className="grid grid-cols-1 gap-6 mb-6">
+									<div className="bg-orange-50 p-6 rounded-xl border-2 border-orange-100">
+										<div className="flex items-center gap-3 mb-4">
+											<FaFireAlt size={24} className="text-orange-600" />
+											<p className="text-sm font-bold text-gray-700 uppercase">
+												Calories
+											</p>
+										</div>
+										<p className="text-4xl font-black text-orange-600">
+											{Math.round(selectedMeal.calories)}
+											<span className="text-lg text-gray-500 ml-2">kcal</span>
+										</p>
+									</div>
+
+									<div>
+										<p className="text-sm font-bold text-gray-700 mb-3 uppercase">
+											Estimated Macros
+										</p>
+										<div className="space-y-3">
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">
+													Protein
+												</span>
+												<span className="font-bold text-[#BFFF00] bg-[#BFFF00]/20 px-3 py-1 rounded-full">
+													{Math.round(
+														(selectedMeal.calories / totalCalories) * protein,
+													)}
+													g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Carbs</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round(
+														(selectedMeal.calories / totalCalories) * carbs,
+													)}
+													g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Fats</span>
+												<span className="font-bold text-gray-600 bg-gray-200 px-3 py-1 rounded-full">
+													{Math.round(
+														(selectedMeal.calories / totalCalories) * fat,
+													)}
+													g
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+									<p className="text-sm text-blue-800">
+										<strong>Note:</strong> Portion adjustment should be based on
+										your specific hunger levels and activity.
+									</p>
+								</div>
+							</div>
+
+							{/* Right Side - Image */}
+							<div className="md:w-[45%] flex flex-col items-center justify-center p-8 bg-gray-50">
+								<div className="w-full max-w-sm">
+									<img
+										src={getMealImage(selectedMeal.name)}
+										alt={selectedMeal.name}
+										className="w-full h-auto rounded-xl shadow-md"
+									/>
+									<p className="text-center text-orange-600 text-sm mt-4 font-medium">
+										Enjoy your nutritious meal!
+									</p>
+								</div>
 							</div>
 						</div>
-					</SwiperSlide>
-				))}
-			</Swiper>
-
-			{/* Modal Logic Remains the Same */}
-		</section>
+					</div>
+				</div>
+			)}
+		</>
 	);
 }
