@@ -24,10 +24,10 @@ export async function POST(req: NextRequest) {
 			);
 		}
 
-		// Basic safety: limit length from frontend and trim here too
+		
 		const userMessage = message.trim().slice(0, 2000);
 
-		// Build the Gemini generateContent request body (REST form from docs)
+		
 		const url = `${GEMINI_API_URL}/${encodeURIComponent(
 			GEMINI_MODEL
 		)}:generateContent`;

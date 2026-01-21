@@ -1,5 +1,6 @@
 import DashboardSidebar from "@/app/dashboard/components/DashboardSidebar";
 import DashboardTopBar from "@/app/dashboard/components/DashboardTopBar";
+import TrackToday from "./components/TrackToday";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
