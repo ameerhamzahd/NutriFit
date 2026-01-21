@@ -63,13 +63,9 @@ export default function DashboardSidebar() {
     <>
       <div className="">
         {/* DESKTOP SIDEBAR */}
-<<<<<<< HEAD
-        <aside className="hidden h-screen md:flex md:w-[80px] lg:w-[275px] flex-col z-50 md:ml-6 rounded-t-[25px] bg-[#BFFF00]/25 backdrop-blur-md">
-=======
         <aside
           className="hidden h-screen md:flex md:w-[80px] lg:w-[275px] flex-col z-50 md:ml-6 rounded-t-[25px] bg-[#1A232D]/50 backdrop-blur-md"
         >
->>>>>>> 29f51d7133afde3301c5bc60ee612efb46bda262
           <div>
             <nav className="flex-1 py-6">
               {/* Brand */}
