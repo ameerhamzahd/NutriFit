@@ -90,7 +90,7 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 
 	if (error)
 		return (
-			<div className="bg-red-50 p-6 rounded-3xl shadow-xl border-2 border-red-300 flex items-center gap-3 text-red-700">
+			<div className="p-6 rounded-3xl shadow-xl border-2 border-red-300 flex items-center gap-3 text-red-700">
 				<FaTimesCircle size={24} />
 				<div>
 					<p className="font-bold text-lg">Error Loading Plan</p>

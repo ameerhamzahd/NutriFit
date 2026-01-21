@@ -34,7 +34,7 @@ export default function DashboardSidebar() {
       <div className="">
         {/* DESKTOP SIDEBAR */}
         <aside
-          className="hidden h-screen md:flex md:w-[80px] lg:w-[275px] flex-col z-50 md:ml-6 rounded-t-[25px] bg-[#BFFF00]/25 backdrop-blur-md"
+          className="hidden h-screen md:flex md:w-[80px] lg:w-[275px] flex-col z-50 md:ml-6 rounded-t-[25px] bg-[#1A232D]/50 backdrop-blur-md"
         >
           <div>
             {/* Menu */}
