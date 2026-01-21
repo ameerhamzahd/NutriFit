@@ -45,7 +45,7 @@ export async function GET(req: Request) {
 			.from("daily_nutrition_logs")
 			.select("*")
 			.eq("user_id", userId)
-			.eq("date", todayStr)
+			.eq("date", tomorrowStr)
 			.maybeSingle();
 
 		let finalCalories = baselineCalories;

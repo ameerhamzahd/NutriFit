@@ -249,7 +249,7 @@ export default function TrackToday({ userId }: { userId: string }) {
 				) : (
 					<>
 						<Check className="h-5 w-5" />
-						Save Today's Progress
+						Save Today{"'"}s Progress
 					</>
 				)}
 			</button>

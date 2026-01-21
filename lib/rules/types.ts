@@ -9,10 +9,10 @@ export type DailyTargets = {
 };
 
 export type DailyAdherence = {
-	calorieRatio: number;
-	proteinRatio: number;
+	calorieAdherence: number; // e.g., 85
+	proteinAdherence: number; // e.g., 90
 	workoutCompleted: boolean;
-	workoutIntensity?: "Low" | "Moderate" | "High" | null;
-	durationMinutes?: number | null;
+	calorieRatio?: number; // 👈 Make these optional with '?'
+	proteinRatio?: number; // 👈 Make these optional with '?'
 };
 
