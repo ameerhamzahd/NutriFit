@@ -59,21 +59,21 @@ export default function WeeklyProgress({ userId }: { userId: string }) {
   const avgCalories =
     totalDays > 0
       ? Math.round(
-          data.reduce((acc, curr) => acc + curr.calories_consumed, 0) / totalDays
-        )
+        data.reduce((acc, curr) => acc + curr.calories_consumed, 0) / totalDays
+      )
       : 0;
   const targetCalories = data[0]?.calories_target || 2200;
   const avgProtein =
     totalDays > 0
       ? Math.round(
-          data.reduce((acc, curr) => acc + (curr.protein_consumed || 0), 0) /
-            totalDays
-        )
+        data.reduce((acc, curr) => acc + (curr.protein_consumed || 0), 0) /
+        totalDays
+      )
       : 0;
   const targetProtein = data[0]?.protein_target || 150;
 
   return (
-    <div className="space-y-6 mt-8 w-full pb-20 md:pb-6">
+    <div className="space-y-6 w-full md:pb-6">
       {/* Chart Card */}
       <div className="bg-white p-4 sm:p-6 md:p-8 rounded-3xl shadow-2xl border border-gray-100 w-full">
         <h2 className="text-xl sm:text-2xl font-black text-[#1A232D] mb-4 sm:mb-6 flex items-center gap-2">
@@ -133,7 +133,7 @@ export default function WeeklyProgress({ userId }: { userId: string }) {
           </ResponsiveContainer>
         </div>
 
-        <div className="mt-6 pt-6 border-t border-gray-50">
+        <div className="pt-6 border-t border-gray-50">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <GoalRing
               current={avgCalories}
@@ -162,32 +162,6 @@ export default function WeeklyProgress({ userId }: { userId: string }) {
 
       <div className="w-full">
         <ConsistencyHeatmap history={data} />
-      </div>
-
-      <div className="bg-[#1A232D] p-4 sm:p-6 rounded-3xl text-white flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 border-l-4 sm:border-l-8 border-[#BFFF00]">
-        <div
-          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center ${
-            avgCalories <= targetCalories
-              ? "bg-[#BFFF00]/20"
-              : "bg-red-500/20"
-          }`}
-        >
-          {avgCalories <= targetCalories ? (
-            <FaCheckCircle className="text-[#BFFF00]" size={24} />
-          ) : (
-            <FaExclamationCircle className="text-red-400" size={24} />
-          )}
-        </div>
-        <div>
-          <p className="text-[#BFFF00] font-black uppercase text-[9px] sm:text-[10px] tracking-[0.2em] mb-1">
-            System Insight
-          </p>
-          <p className="text-xs sm:text-sm font-medium">
-            {avgCalories <= targetCalories
-              ? "You're hitting your calorie windows perfectly. Keep this pace for optimal results."
-              : "Your weekly average is higher than target. We've adjusted your tomorrow plan to compensate."}
-          </p>
-        </div>
       </div>
     </div>
   );
