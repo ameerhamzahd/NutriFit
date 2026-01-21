@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation"; 
 import WeeklyProgress from "./components/WeeklyProgress";
-
 import { supabase } from "@/lib/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import TrackToday from "./components/TrackToday";
@@ -13,17 +12,24 @@ import TomorrowPlan from "./components/TomorrowPlan";
 export default function DashboardPage() {
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
+	const router = useRouter();
 
 	useEffect(() => {
 		async function getSessionUser() {
 			const {
 				data: { user },
 			} = await supabase.auth.getUser();
-			setUser(user);
+
+			if (!user) {
+				router.replace("auth/login");
+			} else {
+				setUser(user);
+			}
 			setLoading(false);
 		}
+
 		getSessionUser();
-	}, []);
+	}, [router]);
 
 	if (loading) {
 		return (
@@ -36,21 +42,20 @@ export default function DashboardPage() {
 	}
 
 	if (!user) {
-		return <p>Please login to view your dashboard.</p>;
+		return null; 
 	}
 
 	return (
 		<div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-			<div className="col-span-1 lg:col-span-3 items-center">
+			<div className="col-span-1 lg:col-span-3">
 				<UpdateProfile />
 				<WeeklyProgress userId={user.id} />
 			</div>
 
-			<div className="col-span-1 lg:col-span-2 items-center">
+			<div className="col-span-1 lg:col-span-2">
 				<TrackToday userId={user.id} />
-				<TomorrowPlan userId={user.id}/>
+				<TomorrowPlan userId={user.id} />
 			</div>
 		</div>
 	);
 }
-

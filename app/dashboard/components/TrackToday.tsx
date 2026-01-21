@@ -26,12 +26,12 @@ export default function TrackToday({ userId }: { userId: string }) {
 	const today = getBangladeshDate();
 
 	const [form, setForm] = useState({
-		calories_consumed: 0,
-		protein_consumed: 0,
-		carbs_consumed: 0,
-		fat_consumed: 0,
+		calories_consumed: null as number | null,
+		protein_consumed: null as number | null,
+		carbs_consumed: null as number | null,
+		fat_consumed: null as number | null,
 		workout_completed: false,
-		intensity: "Moderate",
+		intensity: "Moderate" as const,
 		duration_minutes: 30,
 	});
 
@@ -45,24 +45,66 @@ export default function TrackToday({ userId }: { userId: string }) {
 		setTimeout(() => setToast(null), 3000);
 	};
 
+	// Validation: all nutrient fields must be non-null and >= 0
+	const isFormValid = () => {
+		const { calories_consumed, protein_consumed, carbs_consumed, fat_consumed } = form;
+		return (
+			calories_consumed !== null &&
+			protein_consumed !== null &&
+			carbs_consumed !== null &&
+			fat_consumed !== null &&
+			calories_consumed >= 0 &&
+			protein_consumed >= 0 &&
+			carbs_consumed >= 0 &&
+			fat_consumed >= 0
+		);
+	};
+
+	const updateNutrient = (field: string, value: string) => {
+		if (value === '') {
+			setForm((prev) => ({ ...prev, [field]: null }));
+			return;
+		}
+		const num = Number(value);
+		if (isNaN(num)) {
+			setForm((prev) => ({ ...prev, [field]: null }));
+		} else {
+			setForm((prev) => ({ ...prev, [field]: Math.max(0, num) }));
+		}
+	};
+
 	async function submit() {
+		if (!isFormValid()) return;
+
 		setIsLoading(true);
 
 		try {
+			// Convert nulls to 0 for API (if backend requires numbers)
+			const payload = {
+				user_id: userId,
+				date: today,
+				calories_consumed: form.calories_consumed ?? 0,
+				protein_consumed: form.protein_consumed ?? 0,
+				carbs_consumed: form.carbs_consumed ?? 0,
+				fat_consumed: form.fat_consumed ?? 0,
+				workout_completed: form.workout_completed,
+				intensity: form.intensity,
+				duration_minutes: form.duration_minutes,
+			};
+
 			const res = await fetch("/api/track-today", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					user_id: userId,
-					date: today,
-					...form,
-				}),
+				body: JSON.stringify(payload),
 			});
 
 			const data = await res.json();
 
 			if (res.ok) {
 				showToast("Daily tracking saved successfully! 🎉", "success");
+				setTimeout(() => {
+					window.location.reload();
+				}, 1000);
 			} else {
 				showToast(data.error || "Failed to save data. Please try again.", "error");
 			}
@@ -72,10 +114,6 @@ export default function TrackToday({ userId }: { userId: string }) {
 			setIsLoading(false);
 		}
 	}
-
-	const updateNutrient = (field: string, value: number) => {
-		setForm({ ...form, [field]: Math.max(0, value) });
-	};
 
 	return (
 		<div className="bg-[#1A232D] text-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl mx-auto">
@@ -100,10 +138,11 @@ export default function TrackToday({ userId }: { userId: string }) {
 						<div className="flex items-center gap-2">
 							<input
 								type="number"
-								value={form.calories_consumed || ''}
-								onChange={(e) => updateNutrient('calories_consumed', Number(e.target.value) || 0)}
+								value={form.calories_consumed ?? ''}
+								onChange={(e) => updateNutrient('calories_consumed', e.target.value)}
 								className="flex-1 bg-[#0f1419] border border-gray-700/50 rounded-lg px-4 py-2.5 text-center text-xl font-bold focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
 								placeholder="0"
+								min="0"
 							/>
 						</div>
 						<span className="text-xs text-gray-500 mt-2 block text-center">kcal</span>
@@ -118,10 +157,11 @@ export default function TrackToday({ userId }: { userId: string }) {
 						<div className="flex items-center gap-2">
 							<input
 								type="number"
-								value={form.protein_consumed || ''}
-								onChange={(e) => updateNutrient('protein_consumed', Number(e.target.value) || 0)}
+								value={form.protein_consumed ?? ''}
+								onChange={(e) => updateNutrient('protein_consumed', e.target.value)}
 								className="flex-1 bg-[#0f1419] border border-gray-700/50 rounded-lg px-4 py-2.5 text-center text-xl font-bold focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
 								placeholder="0"
+								min="0"
 							/>
 						</div>
 						<span className="text-xs text-gray-500 mt-2 block text-center">grams</span>
@@ -136,10 +176,11 @@ export default function TrackToday({ userId }: { userId: string }) {
 						<div className="flex items-center gap-2">
 							<input
 								type="number"
-								value={form.carbs_consumed || ''}
-								onChange={(e) => updateNutrient('carbs_consumed', Number(e.target.value) || 0)}
+								value={form.carbs_consumed ?? ''}
+								onChange={(e) => updateNutrient('carbs_consumed', e.target.value)}
 								className="flex-1 bg-[#0f1419] border border-gray-700/50 rounded-lg px-4 py-2.5 text-center text-xl font-bold focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
 								placeholder="0"
+								min="0"
 							/>
 						</div>
 						<span className="text-xs text-gray-500 mt-2 block text-center">grams</span>
@@ -154,12 +195,12 @@ export default function TrackToday({ userId }: { userId: string }) {
 						<div className="flex items-center gap-2">
 							<input
 								type="number"
-								value={form.fat_consumed || ''}
-								onChange={(e) => updateNutrient('fat_consumed', Number(e.target.value) || 0)}
+								value={form.fat_consumed ?? ''}
+								onChange={(e) => updateNutrient('fat_consumed', e.target.value)}
 								className="flex-1 bg-[#0f1419] border border-gray-700/50 rounded-lg px-4 py-2.5 text-center text-xl font-bold focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
 								placeholder="0"
+								min="0"
 							/>
-
 						</div>
 						<span className="text-xs text-gray-500 mt-2 block text-center">grams</span>
 					</div>
@@ -223,7 +264,7 @@ export default function TrackToday({ userId }: { userId: string }) {
 							<label className="text-sm text-gray-400 block mb-3 font-medium">Intensity</label>
 							<select
 								value={form.intensity}
-								onChange={(e) => setForm({ ...form, intensity: e.target.value })}
+								onChange={(e) => setForm({ ...form, intensity: e.target.value as "Light" | "Moderate" | "Intense" })}
 								className="w-full bg-[#1a1f2e] border border-gray-600 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
 							>
 								{intensityLevels.map((level) => (
@@ -238,8 +279,12 @@ export default function TrackToday({ userId }: { userId: string }) {
 			{/* Submit Button */}
 			<button
 				onClick={submit}
-				disabled={isLoading}
-				className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-4 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/50 flex items-center justify-center gap-2"
+				disabled={isLoading || !isFormValid()}
+				className={`w-full font-semibold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 ${
+					isLoading || !isFormValid()
+						? 'bg-gray-600 cursor-not-allowed'
+						: 'bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 hover:shadow-indigo-500/50'
+				} text-white`}
 			>
 				{isLoading ? (
 					<>
