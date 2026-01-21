@@ -8,6 +8,8 @@ import TomorrowPlan from "./components/TomorrowPlan";
 import WeeklyProgress from "./components/WeeklyProgress";
 import { HeartHandshake } from "lucide-react";
 import ConsistencyHeatmap from "./components/ConsistencyHeatap";
+import { supabase } from "@/lib/supabaseClient";
+import { User } from "@supabase/supabase-js";
 
 export default function DashboardPage() {
 	const [user, setUser] = useState<User | null>(null);
