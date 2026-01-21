@@ -116,7 +116,7 @@ export default function UpdateProfile() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-6">
+    <div className="max-w-2xl mx-auto mt-8 md:p-6">
       {/* Toast */}
       {toast && (
         <div
