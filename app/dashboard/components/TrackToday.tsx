@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Plus, Minus, Dumbbell, Check, Flame, Droplet, Wheat, Activity } from "lucide-react";
 
+// Define intensity type
+type IntensityLevel = "Light" | "Moderate" | "Intense";
+
 // Mock date utility - replace with your actual implementation
 const getBangladeshDate = () => {
 	return new Date().toISOString().split('T')[0];
@@ -31,14 +34,14 @@ export default function TrackToday({ userId }: { userId: string }) {
 		carbs_consumed: null as number | null,
 		fat_consumed: null as number | null,
 		workout_completed: false,
-		intensity: "Moderate" as const,
+		intensity: "Moderate" as IntensityLevel, // ✅ Now properly typed
 		duration_minutes: 30,
 	});
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-	const intensityLevels = ["Light", "Moderate", "Intense"];
+	const intensityLevels: IntensityLevel[] = ["Light", "Moderate", "Intense"];
 
 	const showToast = (message: string, type: 'success' | 'error') => {
 		setToast({ message, type });
@@ -264,7 +267,7 @@ export default function TrackToday({ userId }: { userId: string }) {
 							<label className="text-sm text-gray-400 block mb-3 font-medium">Intensity</label>
 							<select
 								value={form.intensity}
-								onChange={(e) => setForm({ ...form, intensity: e.target.value as "Light" | "Moderate" | "Intense" })}
+								onChange={(e) => setForm({ ...form, intensity: e.target.value as IntensityLevel })}
 								className="w-full bg-[#1a1f2e] border border-gray-600 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-pointer"
 							>
 								{intensityLevels.map((level) => (
