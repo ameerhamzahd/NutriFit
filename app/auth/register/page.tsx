@@ -296,7 +296,7 @@ export default function RegisterPage() {
 					>
 						<h1
 							className={cn(
-								"text-xl md:text-3xl font-mono-trust-display flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300 from-[#1A232D] to-[#FF6600]"
+								"text-xl md:text-3xl font-unbounded flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300 from-[#1A232D] to-[#FF6600]"
 							)}
 						>
 							Nutri

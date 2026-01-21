@@ -41,6 +41,43 @@ export default function TomorrowPlan({ userId }: { userId: string }) {
 		fetchPlan();
 	}, [userId]);
 
+	function MacroLevelBar({
+		protein,
+		carbs,
+		fat,
+	}: {
+		protein: number;
+		carbs: number;
+		fat: number;
+	}) {
+		const maxProtein = 200;
+		const maxCarbs = 300;
+		const maxFat = 100;
+
+		const pPercent = Math.min((protein / maxProtein) * 100, 100);
+		const cPercent = Math.min((carbs / maxCarbs) * 100, 100);
+		const fPercent = Math.min((fat / maxFat) * 100, 100);
+
+		return (
+			<div className="w-full h-3 bg-white/10 rounded-full overflow-hidden flex">
+				<div
+					className="h-full bg-[#BFFF00]"
+					style={{ width: `${pPercent / 3}%` }}
+				/>
+				<div
+					className="h-full bg-[#FF6600]"
+					style={{ width: `${cPercent / 3}%` }}
+				/>
+				<div
+					className="h-full bg-gray-400"
+					style={{ width: `${fPercent / 3}%` }}
+				/>
+			</div>
+		);
+	}
+
+
+
 	if (loading)
 		return (
 			<div className="h-48 animate-pulse bg-gray-100 rounded-3xl mt-8"></div>
@@ -118,18 +155,26 @@ export default function TomorrowPlan({ userId }: { userId: string }) {
 				</div>
 
 				{/* Macro Preview */}
-				<div className="mt-6 flex items-center gap-4 text-sm font-bold border-t border-white/5 pt-6">
-					<span className="flex items-center gap-2">
-						<span className="w-2 h-2 rounded-full bg-[#BFFF00]" />{" "}
-						{plan.protein}g P
-					</span>
-					<span className="flex items-center gap-2">
-						<span className="w-2 h-2 rounded-full bg-[#FF6600]" /> {plan.carbs}g
-						C
-					</span>
-					<span className="flex items-center gap-2">
-						<span className="w-2 h-2 rounded-full bg-gray-500" /> {plan.fat}g F
-					</span>
+				<div className="mt-6">
+					<MacroLevelBar
+						protein={plan.protein}
+						carbs={plan.carbs}
+						fat={plan.fat}
+					/>
+
+					<div className="flex items-center gap-4 text-sm font-bold border-t border-white/5 pt-6">
+						<span className="flex items-center gap-2">
+							<span className="w-2 h-2 rounded-full bg-[#BFFF00]" />{" "}
+							{plan.protein}g Protein
+						</span>
+						<span className="flex items-center gap-2">
+							<span className="w-2 h-2 rounded-full bg-[#FF6600]" /> {plan.carbs}g
+							Crabs
+						</span>
+						<span className="flex items-center gap-2">
+							<span className="w-2 h-2 rounded-full bg-gray-500" /> {plan.fat}g Fat
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>

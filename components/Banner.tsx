@@ -21,7 +21,7 @@ export default function Banner() {
             {/* Background Video */}
             <video
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                src="/videos/bannerVideo.mp4"
+                src="https://res.cloudinary.com/di1xr30ta/video/upload/v1769015611/video_2026-01-21_21-26-33_hun5uq.mp4"
                 autoPlay
                 muted
                 loop

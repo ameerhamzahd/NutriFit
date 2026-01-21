@@ -111,8 +111,10 @@ export default function UpdateProfile({ onClose }: UpdateProfileProps) {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-6 w-6 animate-spin text-orange-500" />
+            <div className="flex items-center justify-center space-x-3 mb-4">
+                <div className="w-4 h-4 rounded-full animate-bounce" style={{ backgroundColor: '#BFFF00' }}></div>
+                <div className="w-4 h-4 rounded-full animate-bounce" style={{ backgroundColor: '#BFFF00', animationDelay: '0.1s' }}></div>
+                <div className="w-4 h-4 rounded-full animate-bounce" style={{ backgroundColor: '#BFFF00', animationDelay: '0.2s' }}></div>
             </div>
         );
     }

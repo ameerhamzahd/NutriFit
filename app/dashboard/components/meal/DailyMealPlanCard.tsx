@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaTimesCircle, FaFireAlt, FaUtensils, FaTimes } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 
 type MealDetail = { name: string; calories: number };
 type Macro = { protein_g: number; carbs_g: number; fat_g: number };
@@ -13,20 +11,16 @@ function getMealImage(name: string): string {
 	const nameLower = name.toLowerCase();
 
 	if (nameLower.includes("breakfast") || nameLower.includes("morning")) {
-		return "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&h=300&fit=crop";
+		return "/images/Meals/breakfast.jpg";
 	} else if (nameLower.includes("lunch")) {
-		return "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop";
+		return "/images/Meals/lunch.jpg";
 	} else if (nameLower.includes("dinner")) {
-		return "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop";
+		return "/images/Meals/dinner.jpg";
 	} else if (nameLower.includes("snack")) {
-		return "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=400&h=300&fit=crop";
-	} else if (nameLower.includes("smoothie") || nameLower.includes("shake")) {
-		return "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400&h=300&fit=crop";
-	} else if (nameLower.includes("salad")) {
-		return "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop";
+		return "/images/Meals/snacks.jpg";
 	}
 
-	return "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop";
+	return "/images/Meals/random.jpg";
 }
 
 export default function DailyMealPlanCard({ userId }: { userId: string }) {
@@ -121,52 +115,49 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 						</p>
 					</div>
 
-					{/* Meal Cards with Swiper */}
-					<div className="max-w-11/12 mx-auto mt-8">
-						<Swiper
-							spaceBetween={24}
-							breakpoints={{
-								0: { slidesPerView: 1.30 },
-								640: { slidesPerView: 2.1 },
-								1024: { slidesPerView: 3.35 },
-							}}
-						>
-							{mealPlanData.meals.map((meal, index) => (
-								<SwiperSlide key={index} className="h-full">
-									<div
-										className="relative h-80 md:h-96 rounded-[25px] overflow-hidden group cursor-pointer"
-										onClick={() => setSelectedMeal(meal)}
-									>
-										{/* Background Image */}
-										<img
-											src={getMealImage(meal.name)}
-											alt={meal.name}
-											className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-										/>
+					{/* Meal Cards Grid */}
+					<div className="max-w-7xl mx-auto mt-8">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+							{mealPlanData.meals.slice(0, 4).map((meal, index) => (
+								<div
+									key={index}
+									className="relative h-80 md:h-96 rounded-[15px] overflow-hidden group cursor-pointer"
+								>
+									{/* Background Image */}
+									<img
+										src={getMealImage(meal.name)}
+										alt={meal.name}
+										className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+									/>
 
-										{/* Dark Overlay */}
-										<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
+									{/* Dark Overlay */}
+									<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
 
-										{/* Content */}
-										<div className="relative h-full flex flex-col justify-between p-8 text-white">
-											{/* Number/Badge */}
-											<div className="flex items-center justify-between">
-												<div className="text-[30px] md:text-[45px] font-bold text-white/90">
-													{String(index + 1).padStart(2, '0')}
-												</div>
-											</div>
-
-											{/* Bottom Content */}
-											<div>
-												<h3 className="font-semibold text-xl mb-3">
-													{meal.name}
-												</h3>
+									{/* Content */}
+									<div className="relative h-full flex flex-col justify-between p-6 text-white">
+										{/* Number/Badge */}
+										<div className="flex items-center justify-between">
+											<div className="text-[30px] md:text-[45px] font-bold text-white/90">
+												{String(index + 1).padStart(2, '0')}
 											</div>
 										</div>
+
+										{/* Bottom Content */}
+										<div>
+											<h3 className="font-semibold text-base md:text-lg mb-3">
+												{meal.name}
+											</h3>
+											<button
+												onClick={() => setSelectedMeal(meal)}
+												className="w-full bg-[#FF6600] hover:bg-[#ff7f33] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+											>
+												View Details
+											</button>
+										</div>
 									</div>
-								</SwiperSlide>
+								</div>
 							))}
-						</Swiper>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -178,10 +169,19 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 					onClick={() => setSelectedMeal(null)}
 				>
 					<div
-						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
 						onClick={(e) => e.stopPropagation()}
 					>
-						<div className="flex flex-col md:flex-row max-h-[90vh]">
+						{/* Close Button */}
+						<button
+							onClick={() => setSelectedMeal(null)}
+							className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10"
+						>
+							<FaTimes size={16} className="text-gray-600" />
+						</button>
+
+						{/* Desktop Layout */}
+						<div className="hidden md:flex flex-row max-h-[90vh]">
 							{/* Left Side - Content */}
 							<div className="flex-1 p-8 overflow-y-auto">
 								<h3 className="text-2xl font-bold text-[#1A232D] mb-6 pr-8">
@@ -189,6 +189,77 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 								</h3>
 
 								<div className="grid grid-cols-1 gap-6 mb-6">
+									<div className="bg-orange-50 p-6 rounded-xl border-2 border-orange-100">
+										<div className="flex items-center gap-3 mb-4">
+											<FaFireAlt size={24} className="text-orange-600" />
+											<p className="text-sm font-bold text-gray-700 uppercase">
+												Calories
+											</p>
+										</div>
+										<p className="text-4xl font-black text-orange-600">
+											{Math.round(selectedMeal.calories)}
+											<span className="text-lg text-gray-500 ml-2">kcal</span>
+										</p>
+									</div>
+
+									<div>
+										<p className="text-sm font-bold text-gray-700 mb-3 uppercase">
+											Estimated Macros
+										</p>
+										<div className="space-y-3">
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Protein</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * protein)}g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Carbs</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * carbs)}g
+												</span>
+											</div>
+											<div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+												<span className="font-medium text-gray-700">Fats</span>
+												<span className="font-bold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">
+													{Math.round((selectedMeal.calories / totalCalories) * fat)}g
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+									<p className="text-sm text-blue-800">
+										<strong>Note:</strong> This is a personalized meal plan. Adjust portions based on your hunger levels and activity for the day.
+									</p>
+								</div>
+							</div>
+
+							{/* Right Side - Image */}
+							<div className="md:w-[45%] flex flex-col items-center justify-center p-8">
+								<div className="w-full max-w-sm">
+									<img
+										src={getMealImage(selectedMeal.name)}
+										alt={selectedMeal.name}
+										className="w-full h-auto rounded-xl"
+									/>
+									<p className="text-center text-orange-600 text-sm mt-4">
+										Enjoy your nutritious meal!
+									</p>
+								</div>
+							</div>
+						</div>
+
+						{/* Mobile Layout - Scrollable */}
+						<div className="md:hidden overflow-y-auto max-h-[90vh]">
+							{/* Content First */}
+							<div className="p-6">
+								<h3 className="text-xl font-bold text-[#1A232D] mb-6 pr-8">
+									{selectedMeal.name}
+								</h3>
+
+								<div className="space-y-6 mb-6">
 									<div className="bg-orange-50 p-6 rounded-xl border-2 border-orange-200">
 										<div className="flex items-center gap-3 mb-4">
 											<FaFireAlt size={24} className="text-orange-600" />
@@ -227,24 +298,16 @@ export default function DailyMealPlanCard({ userId }: { userId: string }) {
 											</div>
 										</div>
 									</div>
+
+									<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+										<p className="text-sm text-blue-800">
+											<strong>Note:</strong> This is a personalized meal plan. Adjust portions based on your hunger levels and activity for the day.
+										</p>
+									</div>
 								</div>
 
-								<div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
-									<p className="text-sm text-blue-800">
-										<strong>Note:</strong> This is a personalized meal plan. Adjust portions based on your hunger levels and activity for the day.
-									</p>
-								</div>
-							</div>
-
-							{/* Right Side - Image */}
-							<div className="md:w-[45%] flex flex-col items-center justify-center p-8 relative">
-								<button
-									onClick={() => setSelectedMeal(null)}
-									className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg transition-all z-10 cursor-pointer"
-								>
-									<FaTimes size={20} className="text-gray-600" />
-								</button>
-								<div className="w-2/3 max-w-sm">
+								{/* Image After Scrolling */}
+								<div className="bg-gray-50 p-6 rounded-xl">
 									<img
 										src={getMealImage(selectedMeal.name)}
 										alt={selectedMeal.name}

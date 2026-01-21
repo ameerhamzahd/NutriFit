@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function DashboardTopBar() {
   const [name, setName] = useState<string>("");
@@ -50,8 +52,11 @@ export default function DashboardTopBar() {
 
   return (
     <header
-      className="flex items-center justify-between py-6 md:pt-11 max-w-11/12 mx-auto gap-6"
+      className="flex items-center py-6 md:pt-11 max-w-11/12 mx-auto gap-6"
     >
+      <Link href="/" className="rounded-full hover:scale-110 transition-transform">
+        <ArrowLeft size={22}/>
+      </Link>
       <h1 className="relative lg:text-2xl font-medium font-unbounded">
         Welcome Back,  
         <span className="text-[#FF6600]">

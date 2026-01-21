@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaDumbbell, FaClock, FaTimesCircle, FaArrowUp, FaTimes } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { FaDumbbell, FaTimesCircle, FaTimes } from "react-icons/fa";
 
 type DailyWorkout = {
 	exerciseId: string;
@@ -24,28 +22,28 @@ function getExerciseImage(name: string): string {
 	const nameLower = name.toLowerCase();
 
 	if (nameLower.includes("cardio") || nameLower.includes("running") || nameLower.includes("cycling")) {
-		return "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&h=300&fit=crop";
+		return "/images/Exercizes/cardio.jpg";
 	} else if (nameLower.includes("squat")) {
-		return "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400&h=300&fit=crop";
+		return "/images/Exercizes/squats.jpg";
 	} else if (nameLower.includes("push-up") || nameLower.includes("pushup")) {
-		return "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=400&h=300&fit=crop";
+		return "/images/Exercizes/pushup.jpg";
 	} else if (nameLower.includes("plank")) {
-		return "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=300&fit=crop";
+		return "/images/Exercizes/plank.jpg";
 	} else if (nameLower.includes("bench press")) {
-		return "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=400&h=300&fit=crop";
+		return "/images/Exercizes/bench-press.jpg";
 	} else if (nameLower.includes("deadlift")) {
-		return "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=300&fit=crop";
+		return "/images/Exercizes/deadlift.jpg";
 	} else if (nameLower.includes("pull-up") || nameLower.includes("pullup")) {
-		return "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400&h=300&fit=crop";
+		return "/images/Exercizes/pullup.jpg";
 	} else if (nameLower.includes("curl")) {
-		return "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&h=300&fit=crop";
+		return "/images/Exercizes/bicep-curls.jpg";
 	} else if (nameLower.includes("stretch") || nameLower.includes("yoga")) {
-		return "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop";
+		return "/images/Exercizes/yoga.jpg";
 	} else if (nameLower.includes("circuit")) {
-		return "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop";
+		return "/images/Exercizes/circuit.jpg";
 	}
 
-	return "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop";
+	return "/images/Exercizes/random.jpg";
 }
 
 export default function DailyWorkoutCard({ userId }: { userId: string }) {
@@ -138,55 +136,52 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 						</p>
 					</div>
 
-					{/* Workout Cards with Swiper */}
-					<div className="max-w-11/12 mx-auto mt-8">
-						<Swiper
-							spaceBetween={24}
-							breakpoints={{
-								0: { slidesPerView: 1.30 },
-								640: { slidesPerView: 2.30 },
-								1024: { slidesPerView: 3.35 },
-							}}
-						>
-							{workoutPlan.map((exercise, index) => (
-								<SwiperSlide key={exercise.exerciseId || index} className="h-full">
-									<div
-										className="relative h-80 md:h-96 rounded-[25px] overflow-hidden group cursor-pointer"
-										onClick={() => setSelectedExercise(exercise)}
-									>
-										{/* Background Image */}
-										<img
-											src={exercise.gifUrl || getExerciseImage(exercise.name)}
-											alt={exercise.name}
-											className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-											onError={(e) => {
-												e.currentTarget.src = getExerciseImage(exercise.name);
-											}}
-										/>
+					{/* Workout Cards Grid */}
+					<div className="max-w-7xl mx-auto mt-8">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+							{workoutPlan.slice(0, 4).map((exercise, index) => (
+								<div
+									key={exercise.exerciseId || index}
+									className="relative h-80 md:h-96 rounded-[15px] overflow-hidden group cursor-pointer"
+								>
+									{/* Background Image */}
+									<img
+										src={exercise.gifUrl || getExerciseImage(exercise.name)}
+										alt={exercise.name}
+										className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+										onError={(e) => {
+											e.currentTarget.src = getExerciseImage(exercise.name);
+										}}
+									/>
 
-										{/* Dark Overlay */}
-										<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
+									{/* Dark Overlay */}
+									<div className="absolute inset-0 bg-black/50 group-hover:bg-black/75 transition-colors duration-300"></div>
 
-										{/* Content */}
-										<div className="relative h-full flex flex-col justify-between p-8 text-white">
-											{/* Number/Badge */}
-											<div className="flex items-center justify-between">
-												<div className="text-[30px] md:text-[45px] font-bold text-white/90">
-													{String(index + 1).padStart(2, '0')}
-												</div>
-											</div>
-
-											{/* Bottom Content */}
-											<div>
-												<h3 className="font-semibold text-xl mb-3">
-													{exercise.name}
-												</h3>
+									{/* Content */}
+									<div className="relative h-full flex flex-col justify-between p-6 text-white">
+										{/* Number/Badge */}
+										<div className="flex items-center justify-between">
+											<div className="text-[30px] md:text-[45px] font-bold text-white/90">
+												{String(index + 1).padStart(2, '0')}
 											</div>
 										</div>
+
+										{/* Bottom Content */}
+										<div>
+											<h3 className="font-semibold text-base md:text-lg mb-3">
+												{exercise.name}
+											</h3>
+											<button
+												onClick={() => setSelectedExercise(exercise)}
+												className="w-full bg-[#FF6600] hover:bg-[#ff7f33] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+											>
+												View Details
+											</button>
+										</div>
 									</div>
-								</SwiperSlide>
+								</div>
 							))}
-						</Swiper>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -198,16 +193,19 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 					onClick={() => setSelectedExercise(null)}
 				>
 					<div
-						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+						className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl relative"
 						onClick={(e) => e.stopPropagation()}
 					>
-						<div className="flex flex-col md:flex-row max-h-[90vh]">
-							<button
-								onClick={() => setSelectedExercise(null)}
-								className="w-8 h-8 flex items-end justify-end rounded-lg transition-all z-10 cursor-pointer"
-							>
-								<FaTimes size={20} className="text-gray-600" />
-							</button>
+						{/* Close Button */}
+						<button
+							onClick={() => setSelectedExercise(null)}
+							className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10"
+						>
+							<FaTimes size={16} className="text-gray-600" />
+						</button>
+
+						{/* Desktop Layout */}
+						<div className="hidden md:flex flex-row max-h-[90vh]">
 							{/* Left Side - Content */}
 							<div className="flex-1 p-8 overflow-y-auto">
 								<h3 className="text-2xl font-bold text-[#1A232D] mb-6 pr-8">
@@ -275,7 +273,7 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 							</div>
 
 							{/* Right Side - Image */}
-							<div className="md:w-[45%] flex flex-col items-center justify-center p-8 relative">
+							<div className="md:w-[45%] flex flex-col items-center justify-center p-8">
 								<div className="w-full max-w-sm">
 									<img
 										src={selectedExercise.gifUrl || getExerciseImage(selectedExercise.name)}
@@ -287,6 +285,89 @@ export default function DailyWorkoutCard({ userId }: { userId: string }) {
 									/>
 									<p className="text-center text-orange-600 text-sm mt-4">
 										Watch the animation to learn proper form
+									</p>
+								</div>
+							</div>
+						</div>
+						{/* Mobile Layout - Scrollable */}
+						<div className="md:hidden overflow-y-auto max-h-[90vh]">
+							{/* Content First */}
+							<div className="p-6">
+								<h3 className="text-xl font-bold text-[#1A232D] mb-6 pr-8">
+									{selectedExercise.name}
+								</h3>
+
+								<div className="space-y-4 mb-6">
+									<div>
+										<p className="text-sm font-semibold text-gray-700 mb-2">Target Muscles:</p>
+										<div className="flex flex-wrap gap-2">
+											{selectedExercise.targetMuscles.map((muscle, i) => (
+												<span key={i} className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium capitalize">
+													{muscle}
+												</span>
+											))}
+										</div>
+									</div>
+
+									<div>
+										<p className="text-sm font-semibold text-gray-700 mb-2">Body Parts:</p>
+										<div className="flex flex-wrap gap-2">
+											{selectedExercise.bodyParts.map((part, i) => (
+												<span key={i} className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium capitalize">
+													{part}
+												</span>
+											))}
+										</div>
+									</div>
+
+									<div>
+										<p className="text-sm font-semibold text-gray-700 mb-2">Equipment:</p>
+										<div className="flex flex-wrap gap-2">
+											{selectedExercise.equipments.map((equip, i) => (
+												<span key={i} className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium capitalize">
+													{equip}
+												</span>
+											))}
+										</div>
+									</div>
+
+									{selectedExercise.secondaryMuscles.length > 0 && (
+										<div>
+											<p className="text-sm font-semibold text-gray-700 mb-2">Secondary Muscles:</p>
+											<div className="flex flex-wrap gap-2">
+												{selectedExercise.secondaryMuscles.map((muscle, i) => (
+													<span key={i} className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium capitalize">
+														{muscle}
+													</span>
+												))}
+											</div>
+										</div>
+									)}
+								</div>
+
+								<div className="mb-6">
+									<h4 className="text-lg font-bold text-[#1A232D] mb-4">Instructions</h4>
+									<div className="space-y-3">
+										{selectedExercise.instructions.map((instruction, i) => (
+											<div key={i} className="text-gray-700 text-sm leading-relaxed">
+												<span className="font-semibold">{instruction.replace(/^Step:\d+\s*/, '')}</span>
+											</div>
+										))}
+									</div>
+								</div>
+
+								{/* Image After Scrolling */}
+								<div className="p-6 rounded-xl">
+									<img
+										src={selectedExercise.gifUrl || getExerciseImage(selectedExercise.name)}
+										alt={selectedExercise.name}
+										className="w-full h-auto rounded-xl"
+										onError={(e) => {
+											e.currentTarget.src = getExerciseImage(selectedExercise.name);
+										}}
+									/>
+									<p className="text-center text-orange-600 text-sm mt-4">
+										Watch the image to learn proper form
 									</p>
 								</div>
 							</div>

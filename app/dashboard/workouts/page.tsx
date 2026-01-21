@@ -96,11 +96,11 @@ export default function WorkoutPlan() {
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center text-[#1A232D]" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
 							<Target size={20} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Focus
 						</h3>
 					</div>
-					<p className="text-2xl font-black text-[#1A232D]">
+					<p className="text-lg lg:text-2xl font-black text-[#1A232D]">
 						Tailored Workouts
 					</p>
 				</div>
@@ -111,11 +111,11 @@ export default function WorkoutPlan() {
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF8833 100%)' }}>
 							<TrendingUp className="text-white" size={20} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Progress
 						</h3>
 					</div>
-					<p className="text-2xl font-black text-[#1A232D]">
+					<p className="text-lg lg:text-2xl font-black text-[#1A232D]">
 						Track Performance
 					</p>
 				</div>
@@ -126,11 +126,11 @@ export default function WorkoutPlan() {
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-200 text-[#1A232D]">
 							<Dumbbell size={20} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Strength
 						</h3>
 					</div>
-					<p className="text-2xl font-black text-[#1A232D]">
+					<p className="text-lg lg:text-2xl font-black text-[#1A232D]">
 						Build Muscle
 					</p>
 				</div>

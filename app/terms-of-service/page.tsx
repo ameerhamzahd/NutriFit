@@ -29,7 +29,7 @@ const page = () => {
                 <div className="relative z-10 p-5 lg:p-10 space-y-5">
                     <Link href="/" className="flex items-center justify-center gap-3 mb-5 group">
                         <h1 className={cn(
-                            "text-xl md:text-3xl font-mono-trust-display flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300 from-[#EEEEEE] to-[#FF6600]"
+                            "text-xl md:text-3xl font-unbounded flex items-center justify-center bg-linear-to-r bg-clip-text text-transparent transition-all duration-300 from-[#EEEEEE] to-[#FF6600]"
                         )}>
                             Nutri
                             <BiDumbbell className={cn(
@@ -192,11 +192,11 @@ const page = () => {
                         <div className="mt-3 space-y-2">
                             <p className="flex items-center gap-2 text-gray-700">
                                 <FaEnvelope className="text-[#000000]" />{" "}
-                                <span>Email: support@smartfitnessplanner.com</span>
+                                <span>Email: info@nutrifit.com.bd</span>
                             </p>
                             <p className="flex items-center gap-2 text-gray-700">
                                 <FaPhone className="text-[#000000]" />{" "}
-                                <span>Phone: +880 1XXX-XXXXXX</span>
+                                <span>Phone: +880 123 456 7890</span>
                             </p>
                         </div>
                     </div>

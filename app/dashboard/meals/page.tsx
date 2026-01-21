@@ -89,18 +89,18 @@ export default function MealPlan() {
 			</div>
 
 			{/* Stats Cards Row */}
-			<div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 relative z-10">
+			<div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 relative z-10">
 				{/* Stat 1 */}
 				<div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-xl">
 					<div className="flex items-center gap-3 mb-2">
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
 							<Target size={20} style={{ color: '#1A232D' }} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Precision
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-lg lg:text-2xl font-black" style={{ color: '#1A232D' }}>
 						Tailored to You
 					</p>
 				</div>
@@ -111,11 +111,11 @@ export default function MealPlan() {
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF8833 100%)' }}>
 							<TrendingUp className="text-white" size={20} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Progress
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-lg lg:text-2xl font-black" style={{ color: '#1A232D' }}>
 						Track Results
 					</p>
 				</div>
@@ -126,11 +126,11 @@ export default function MealPlan() {
 						<div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gray-200">
 							<Sparkles size={20} style={{ color: '#1A232D' }} />
 						</div>
-						<h3 className="text-sm font-bold uppercase tracking-wide text-gray-500">
+						<h3 className="text-xs md:text-sm font-bold uppercase tracking-wide text-gray-500">
 							Science
 						</h3>
 					</div>
-					<p className="text-2xl font-black" style={{ color: '#1A232D' }}>
+					<p className="text-lg lg:text-2xl font-black" style={{ color: '#1A232D' }}>
 						Data-Driven
 					</p>
 				</div>
@@ -144,8 +144,8 @@ export default function MealPlan() {
 			{/* Footer Tip Section */}
 			<div className="max-w-4xl mx-auto mt-12 relative z-10">
 				<div className="p-8 rounded-3xl text-center">
-					<div className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #BFFF00 0%, #9FDF00 100%)' }}>
-						<TrendingUp size={24} style={{ color: '#1A232D' }} />
+					<div className="w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center">
+						<TrendingUp size={24}/>
 					</div>
 					<h3 className="text-xl font-black mb-2" style={{ color: '#1A232D' }}>
 						Pro Tip: Stay Consistent

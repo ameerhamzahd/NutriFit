@@ -54,7 +54,7 @@ export default function NutriFitFAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          <div className="gap-6 md:mb-10">
+          <div className="gap-6 md:mb-10 flex flex-col items-center lg:items-start">
             <motion.div
               className="flex mb-2"
               initial={{ opacity: 0, y: 20 }}
@@ -69,7 +69,7 @@ export default function NutriFitFAQ() {
 
             {/* Heading */}
             <motion.h2
-              className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4"
+              className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4 text-center lg:text-left"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -82,7 +82,7 @@ export default function NutriFitFAQ() {
 
             {/* Paragraph */}
             <motion.p
-              className="text-2xl text-gray-500"
+              className="text-2xl text-gray-500 text-center lg:text-left"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

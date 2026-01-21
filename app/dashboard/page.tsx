@@ -46,8 +46,8 @@ export default function DashboardPage() {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-			<div className="col-span-1 lg:col-span-3">
+		<div className="grid grid-cols-1 gap-6 lg:grid-cols-5 pb-20 md:pb-0">
+			<div className="col-span-1 lg:col-span-3 items-center">
 				<UpdateProfile />
 				<WeeklyProgress userId={user.id} />
 			</div>
