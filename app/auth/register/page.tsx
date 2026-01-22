@@ -193,7 +193,7 @@ export default function RegisterPage() {
 				"Account created successfully! Please check your email to verify your account.",
 				{
 					position: "top-right",
-					autoClose: 1800,
+					autoClose: 4000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -205,7 +205,7 @@ export default function RegisterPage() {
 
 			setTimeout(() => {
 				window.location.href = "/auth/login";
-			}, 2000);
+			}, 4100);
 
 		} catch (err) {
 			setError("Registration failed. Please try again.");
